@@ -28,10 +28,7 @@ import org.rapidpm.vaadin.component.login.LoginView;
 
 import java.time.LocalDateTime;
 
-import static org.rapidpm.frp.matcher.Case.match;
-import static org.rapidpm.frp.matcher.Case.matchCase;
-import static org.rapidpm.frp.model.Result.success;
-import static org.rapidpm.vaadin.v10.issuetracker.RolesToView.*;
+import static org.rapidpm.vaadin.v10.issuetracker.VaadinApp.roleToDefaultView;
 import static org.rapidpm.vaadin.v10.issuetracker.views.MyLoginView.NAV_LOGIN_VIEW;
 
 
@@ -51,19 +48,15 @@ public class MyLoginView extends LoginView {
   public void navigateToApp() {
     Subject activeUser = SecurityUtils.getSubject();
 
-    match(
-        matchCase(() -> success(LoginView.class)),
-        matchCase(() -> activeUser.hasRole(ADMIN.roleName()), () -> success(AdminView.class)),
-        matchCase(() -> activeUser.hasRole(USER.roleName()), () -> success(SearchView.class)),
-        matchCase(() -> activeUser.hasRole(REPORTS.roleName()), () -> success(ReportsView.class)),
-        matchCase(() -> activeUser.hasRole(OBSERVER.roleName()), () -> success(SearchView.class))
-    ).ifPresentOrElse(
-        success -> UI.getCurrent().navigate(success),
-        failed -> {
-          logger().warning("this should never happen !!! " + failed);
-          UI.getCurrent().navigate(LoginView.class);
-        }
-    );
+    roleToDefaultView()
+        .apply(activeUser)
+        .ifPresentOrElse(
+            success -> UI.getCurrent().navigate(success),
+            failed -> {
+              logger().warning("this should never happen !!! " + failed);
+              UI.getCurrent().navigate(LoginView.class);
+            }
+        );
   }
 
   /**

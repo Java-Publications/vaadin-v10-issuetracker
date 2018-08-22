@@ -15,33 +15,14 @@
  */
 package org.rapidpm.vaadin.v10.issuetracker;
 
-public enum RolesToView {
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-  //TODO !!! MUST BE IN SYNC WITH shiro.ini ROLE NAMES !!!
-  ADMIN("admin", "admin"),
-  USER("user", "issue"),
-  REPORTS("reports", "reports"),
-  OBSERVER("observer", "search");
+import static org.rapidpm.vaadin.addons.framework.ComponentIDGenerator.genericID;
 
+public interface TypedComponentIDGenerator {
 
-  private final String roleName;
-  private final String viewName;
-
-  RolesToView(String roleName, String viewName) {
-    this.roleName = roleName;
-    this.viewName = viewName;
-  }
-
-  public String roleName() {
-    return roleName;
-  }
-
-  public String viewName() {
-    return viewName;
-  }
-
-  @Override
-  public String toString() {
-    return viewName;
+  static Function<Class, BiFunction<Class, String, String>> typedComponentIDGenerator() {
+    return (clazz) -> (uiClass, label) -> genericID().apply(uiClass, clazz, label);
   }
 }

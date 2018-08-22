@@ -60,19 +60,17 @@ public class HeaderComponentFactory implements HasLogger {
 
   {
     buttonMap.put(ADMIN.roleName(), this::adminButton);
-    buttonMap.put(USER.roleName(), this::userButton);
-    buttonMap.put(REPORTER.roleName(), this::roleAButton);
-    buttonMap.put(ROLE_B.roleName(), this::roleBButton);
-    buttonMap.put(ROLE_C.roleName(), this::roleCButton);
+    buttonMap.put(USER.roleName(), this::issueButton);
+    buttonMap.put(REPORTS.roleName(), this::reportsButton);
+    buttonMap.put(OBSERVER.roleName(), this::searchButton);
 
   }
 
   public static final String BTN_LOGOUT_ID = buttonID().apply(HeaderComponentFactory.class, "logout");
   public static final String BTN_ADMIN_ID  = buttonID().apply(HeaderComponentFactory.class, ADMIN.viewName());
   public static final String BTN_USER_ID   = buttonID().apply(HeaderComponentFactory.class, USER.viewName());
-  public static final String BTN_ROLE_A_ID = buttonID().apply(HeaderComponentFactory.class, REPORTER.viewName());
-  public static final String BTN_ROLE_B_ID = buttonID().apply(HeaderComponentFactory.class, ROLE_B.viewName());
-  public static final String BTN_ROLE_C_ID = buttonID().apply(HeaderComponentFactory.class, ROLE_C.viewName());
+  public static final String BTN_REPORTS_ID = buttonID().apply(HeaderComponentFactory.class, REPORTS.viewName());
+  public static final String BTN_OBSERVER_ID = buttonID().apply(HeaderComponentFactory.class, OBSERVER.viewName());
 
 
   private Button adminButton() {
@@ -83,37 +81,30 @@ public class HeaderComponentFactory implements HasLogger {
     }};
   }
 
-  private Button userButton() {
+  private Button issueButton() {
     return new Button() {{
       setId(BTN_USER_ID);
-      setText("user");
+      setText("issue");
       addClickListener(e -> UI.getCurrent().navigate(USER.viewName()));
     }};
   }
 
-  private Button roleAButton() {
+  private Button searchButton() {
     return new Button() {{
-      setId(BTN_ROLE_A_ID);
-      setText("role A");
-      addClickListener(e -> UI.getCurrent().navigate(REPORTER.viewName()));
+      setId(BTN_OBSERVER_ID);
+      setText("search");
+      addClickListener(e -> UI.getCurrent().navigate(OBSERVER.viewName()));
     }};
   }
 
-  private Button roleBButton() {
+  private Button reportsButton() {
     return new Button() {{
-      setId(BTN_ROLE_B_ID);
-      setText("role B");
-      addClickListener(e -> UI.getCurrent().navigate(ROLE_B.viewName()));
+      setId(BTN_REPORTS_ID);
+      setText("reports");
+      addClickListener(e -> UI.getCurrent().navigate(REPORTS.viewName()));
     }};
   }
 
-  private Button roleCButton() {
-    return new Button() {{
-      setId(BTN_ROLE_C_ID);
-      setText("role C");
-      addClickListener(e -> UI.getCurrent().navigate(ROLE_C.viewName()));
-    }};
-  }
 
 
   private Button logoutButton() {
