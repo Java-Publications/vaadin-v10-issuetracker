@@ -1,11 +1,11 @@
-package org.rapidpm.vaadin.v10.issuetracker.views;
+package org.rapidpm.vaadin.v10.issuetracker.views.reports;
 
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.router.Route;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.vaadin.v10.issuetracker.MainLayout;
 
-import static org.rapidpm.vaadin.v10.issuetracker.views.ReportsView.NAV_REPORTS_VIEW;
+import static org.rapidpm.vaadin.v10.issuetracker.views.reports.ReportsView.NAV_REPORTS_VIEW;
 
 
 @Route(NAV_REPORTS_VIEW)

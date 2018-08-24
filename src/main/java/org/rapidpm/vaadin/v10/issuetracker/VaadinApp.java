@@ -27,10 +27,10 @@ import org.apache.shiro.subject.Subject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Result;
 import org.rapidpm.vaadin.component.login.LoginView;
-import org.rapidpm.vaadin.v10.issuetracker.views.AdminView;
-import org.rapidpm.vaadin.v10.issuetracker.views.MyLoginView;
-import org.rapidpm.vaadin.v10.issuetracker.views.ReportsView;
-import org.rapidpm.vaadin.v10.issuetracker.views.SearchView;
+import org.rapidpm.vaadin.v10.issuetracker.views.admin.AdminView;
+import org.rapidpm.vaadin.v10.issuetracker.views.login.MyLoginView;
+import org.rapidpm.vaadin.v10.issuetracker.views.reports.ReportsView;
+import org.rapidpm.vaadin.v10.issuetracker.views.search.SearchView;
 
 import java.util.function.Function;
 
@@ -57,12 +57,6 @@ public class VaadinApp extends VerticalLayout implements HasLogger {
           UI.getCurrent().navigate(LoginView.class);
         }
     );
-//    if (subject.isAuthenticated()) {
-//
-//      UI.getCurrent().navigate(MainView.class);
-//    } else {
-//      UI.getCurrent().navigate(MyLoginView.class);
-//    }
   }
 
 

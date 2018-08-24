@@ -13,24 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rapidpm.vaadin.v10.issuetracker.views;
+package org.rapidpm.vaadin.v10.issuetracker.views.admin;
 
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.vaadin.v10.issuetracker.MainLayout;
 
-import static org.rapidpm.vaadin.v10.issuetracker.views.AdminView.NAV_ADMIN_VIEW;
+import static org.rapidpm.vaadin.v10.issuetracker.views.admin.AdminView.NAV_ADMIN_VIEW;
 
 @Route(NAV_ADMIN_VIEW)
 public class AdminView extends MainLayout implements HasLogger {
 
   public static final String NAV_ADMIN_VIEW = "admin";
 
+
+  private final Tabs tabs = new Tabs(){{
+    add(new Tab(){{ setLabel("Tab 01");}});
+    add(new Tab(){{ setLabel("Tab 02");}});
+    add(new Tab(){{ setLabel("Tab 03");}});
+
+    setOrientation(Orientation.HORIZONTAL);
+    setWidth("100%");
+  }};
+
   public AdminView() {
     super();
     logger().info("customizing now the admin ui content..");
-    middle().add(new Span("I am now the Admin View..  add Content here"));
+    middle().add(tabs);
   }
 
 }

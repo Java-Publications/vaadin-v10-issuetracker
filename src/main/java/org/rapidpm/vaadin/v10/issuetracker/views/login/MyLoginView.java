@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.rapidpm.vaadin.v10.issuetracker.views;
+package org.rapidpm.vaadin.v10.issuetracker.views.login;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.notification.Notification;
@@ -29,7 +29,7 @@ import org.rapidpm.vaadin.component.login.LoginView;
 import java.time.LocalDateTime;
 
 import static org.rapidpm.vaadin.v10.issuetracker.VaadinApp.roleToDefaultView;
-import static org.rapidpm.vaadin.v10.issuetracker.views.MyLoginView.NAV_LOGIN_VIEW;
+import static org.rapidpm.vaadin.v10.issuetracker.views.login.MyLoginView.NAV_LOGIN_VIEW;
 
 
 @Route(NAV_LOGIN_VIEW)
