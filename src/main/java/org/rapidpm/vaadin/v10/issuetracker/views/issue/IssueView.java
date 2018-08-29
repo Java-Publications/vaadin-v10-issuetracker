@@ -12,6 +12,20 @@ import static org.rapidpm.vaadin.v10.issuetracker.views.issue.IssueView.NAV_ISSU
 public class IssueView extends MainLayout implements HasLogger {
   public static final String NAV_ISSUE_VIEW = "issue";
 
+
+
+
+  private String issueID;
+  private String projectID;
+  private String subject;
+  private String type;
+  private String priority;
+  private String status;
+  private String assignee;
+
+
+
+
   public IssueView() {
     super();
     logger().info("customizing now the issue ui content..");

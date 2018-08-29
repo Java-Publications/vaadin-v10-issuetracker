@@ -6,6 +6,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.vaadin.v10.issuetracker.MainLayout;
@@ -39,39 +40,55 @@ public class SearchView extends MainLayout implements HasLogger {
     setPrefixComponent(VaadinIcon.SEARCH.create());
     setWidth("100%");
 
+    setValueChangeMode(ValueChangeMode.EAGER);
+    addValueChangeListener( event -> logger().info(" search field value changed... " + event.getValue()));
+
   }};
 
   private final TextField projectIDSearchField = new TextField() {{
     setId(ID_PROJECT_TF);
     setPlaceholder("project ID");
+    setValueChangeMode(ValueChangeMode.EAGER);
+    addValueChangeListener( event -> logger().info(" project id field value changed... " + event.getValue()));
   }};
 
   private final TextField issueIDSearchField = new TextField() {{
     setId(ID_ISSUEID_TF);
     setPlaceholder("issue ID");
+    setValueChangeMode(ValueChangeMode.EAGER);
+    addValueChangeListener( event -> logger().info(" issue id field value changed... " + event.getValue()));
   }};
 
   private final ComboBox<String> typeSearchField = new ComboBox<>() {{
     setId(ID_TYPE_CB);
     setPlaceholder("type");
     setItems(Stream.of("Bug", "Task", "Epic", "SubTask", "Question"));
+
+    addValueChangeListener( event -> logger().info(" type value changed... " + event.getValue()));
   }};
 
   private final ComboBox<String> prioritySearchField = new ComboBox<>() {{
     setId(ID_PRIORITY_CB);
     setPlaceholder("priority");
     setItems(Stream.of("Critical", "Major", "Minor", "Useless"));
+
+    addValueChangeListener( event -> logger().info(" priority field value changed... " + event.getValue()));
   }};
 
   private final ComboBox<String> statusSearchField   = new ComboBox<>() {{
     setId(ID_STATUS_CB);
     setPlaceholder("status");
     setItems(Stream.of("On Hold", "Accepted", "In Progress", "Done"));
+
+    addValueChangeListener( event -> logger().info(" status field value changed... " + event.getValue()));
   }};
 
   private final TextField assigneeSearchField = new TextField() {{
     setId(ID_ASSIGNEE_TF);
     setPlaceholder("assignee");
+
+    setValueChangeMode(ValueChangeMode.ON_CHANGE);
+    addValueChangeListener( event -> logger().info(" assignee field value changed... " + event.getValue()));
   }};
 
 
@@ -96,6 +113,8 @@ public class SearchView extends MainLayout implements HasLogger {
     setId(ID_SEARCH_RESULT_GRID);
     setSelectionMode(SelectionMode.SINGLE);
     setMultiSort(true);
+
+    //TODO if role issue -> issue ID as link to view
 
     addColumn(SearchResultItem::getProjectID).setHeader("Project ID").setSortable(true).setResizable(true);
     addColumn(SearchResultItem::getIssueID).setHeader("Issue ID").setSortable(true).setResizable(true);
