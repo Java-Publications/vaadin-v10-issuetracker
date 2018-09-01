@@ -1,12 +1,12 @@
 /**
  * Copyright © 2017 Sven Ruppert (sven.ruppert@gmail.com)
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,35 +15,23 @@
  */
 package org.rapidpm.vaadin.v10.issuetracker.views.admin;
 
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
-import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.vaadin.v10.issuetracker.MainLayout;
 
 import static org.rapidpm.vaadin.v10.issuetracker.views.admin.AdminView.NAV_ADMIN_VIEW;
 
 @Route(NAV_ADMIN_VIEW)
-public class AdminView extends MainLayout implements HasLogger {
+public class AdminView extends MainLayout {
 
   public static final String NAV_ADMIN_VIEW = "admin";
 
-
-  private final Tabs tabs = new Tabs(){{
-    add(new Tab(){{ setLabel("Tab 01");}});
-    add(new Tab(){{ setLabel("Tab 02");}});
-    add(new Tab(){{ setLabel("Tab 03");}});
-
-    setOrientation(Orientation.HORIZONTAL);
-    setWidth("100%");
-  }};
-
   public AdminView() {
     super();
-    logger().info("customizing now the admin ui content..");
-    middle().add(tabs);
+
+    middle().add(new Span("Admin View"));
   }
 
 }

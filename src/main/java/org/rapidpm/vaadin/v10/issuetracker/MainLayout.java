@@ -1,12 +1,12 @@
 /**
  * Copyright © 2017 Sven Ruppert (sven.ruppert@gmail.com)
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,42 +19,27 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.vaadin.v10.issuetracker.components.header.HeaderComponent;
-import org.rapidpm.vaadin.v10.issuetracker.components.header.HeaderComponentFactory;
 
-//@Theme(value = Lumo.class, variant = Lumo.DARK)
-public class MainLayout extends Composite<VerticalLayout> implements HasLogger {
+public class MainLayout extends Composite<VerticalLayout> {
 
-
-  private final HeaderComponent headerComponent = new HeaderComponentFactory().createBasedOnRoles();
-
-  private final HorizontalLayout header = new HorizontalLayout(
-      headerComponent
-  ) {{
-    setWidth("100%");
-    expand(headerComponent);
-  }};
-
-  private final HorizontalLayout middle = new HorizontalLayout(
-  ) {{
-    setSizeFull();
-  }};
-
-  private final HorizontalLayout bottom = new HorizontalLayout(
-  ) {{
-    setWidth("100%");
-  }};
+  private HorizontalLayout header = new HorizontalLayout();
+  private HorizontalLayout middle = new HorizontalLayout();
+  private HorizontalLayout bottom = new HorizontalLayout();
 
   public MainLayout() {
-    logger().info("setting now the main layout ui ..");
     VerticalLayout wrappedLayout = getContent();
 
+    header.setWidth("100%");
+    HeaderComponent headerComponent = new HeaderComponent();
+    header.add(headerComponent);
+    header.expand(headerComponent);
 
-    wrappedLayout.add(header,
-                      middle,
-                      bottom
-    );
+    middle.setSizeFull();
+
+    bottom.setWidth("100%");
+
+    wrappedLayout.add(header, middle, bottom);
 
     wrappedLayout.setAlignSelf(FlexComponent.Alignment.START, header);
     wrappedLayout.expand(header);

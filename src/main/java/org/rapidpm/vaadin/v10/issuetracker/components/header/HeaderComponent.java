@@ -1,12 +1,12 @@
 /**
  * Copyright © 2017 Sven Ruppert (sven.ruppert@gmail.com)
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,32 +16,27 @@
 package org.rapidpm.vaadin.v10.issuetracker.components.header;
 
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import org.rapidpm.dependencies.core.logger.HasLogger;
-import org.rapidpm.frp.functions.CheckedFunction;
-import org.rapidpm.vaadin.addons.framework.Registration;
-import org.rapidpm.vaadin.v10.issuetracker.TypedComponentIDGenerator;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
-import java.util.function.BiFunction;
+import static org.rapidpm.vaadin.v10.issuetracker.RolesToView.*;
 
-import static org.rapidpm.vaadin.addons.framework.ComponentIDGenerator.spanID;
 
-public class HeaderComponent extends Composite<HorizontalLayout> implements HasLogger {
+public class HeaderComponent extends Composite<HorizontalLayout> {
 
-  public static final String SP_HEADER_MESSAGE = spanID().apply(HeaderComponent.class, "header-message");
-
-  private final HorizontalLayout buttonBar = new HorizontalLayout() {{
-    setJustifyContentMode(JustifyContentMode.END);
-  }};
-
-  private final Span headerMessage = new Span() {{
-    setId(SP_HEADER_MESSAGE);
-  }};
+  private final HorizontalLayout buttonBar     = new HorizontalLayout();
+  private final Span             headerMessage = new Span();
 
   public HeaderComponent() {
+
+    buttonBar.setJustifyContentMode(FlexComponent.JustifyContentMode.END);
+
     final HorizontalLayout wrappedLayout = getContent();
 
     wrappedLayout.add(headerMessage, buttonBar);
@@ -51,6 +46,23 @@ public class HeaderComponent extends Composite<HorizontalLayout> implements HasL
     wrappedLayout.setFlexGrow(1, headerMessage);
     wrappedLayout.expand(headerMessage);
     wrappedLayout.setSizeFull();
+
+    //full init here now
+    Subject activeUser = SecurityUtils.getSubject();
+
+    if (activeUser.hasRole(ADMIN.roleName())) {
+      buttonBar.add(adminButton());
+    }
+    if (activeUser.hasRole(USER.roleName()) || activeUser.hasRole(ADMIN.roleName())) {
+      buttonBar.add(issueButton());
+    }
+    if (activeUser.hasRole(REPORTS.roleName()) || activeUser.hasRole(ADMIN.roleName())) {
+      buttonBar.add(searchButton());
+    }
+    if (activeUser.hasRole(OBSERVER.roleName()) || activeUser.hasRole(ADMIN.roleName())) {
+      buttonBar.add(reportsButton());
+    }
+    if (activeUser.isAuthenticated()) buttonBar.add(logoutButton());
   }
 
 
@@ -58,19 +70,51 @@ public class HeaderComponent extends Composite<HorizontalLayout> implements HasL
     headerMessage.setText(msg);
   }
 
-  public Registration addButton(Button button) {
-    buttonBar.add(button);
-    return (Registration) () -> ((CheckedFunction<Button, Boolean>) b -> {
-      buttonBar.remove(b);
-      return Boolean.TRUE;
-    })
-        .apply(button)
-        .ifFailed((msg) -> logger().warning(" button remove failed " + msg))
-        .getOrElse(() -> Boolean.FALSE);
-  }
+  //to complex for this example
+//  public Registration addButton(Button button) {
+//    buttonBar.add(button);
+//    return (Registration) () -> buttonBar.remove(button);
+//  }
 
 
-  public static BiFunction<Class, String, String> componentIDGenerator() {
-    return TypedComponentIDGenerator.typedComponentIDGenerator().apply(HeaderComponent.class);
+  private Button adminButton() {
+    Button button = new Button();
+    button.setText("admin");
+    button.addClickListener(e -> UI.getCurrent().navigate(ADMIN.viewName()));
+    return button;
   }
+
+  private Button issueButton() {
+    Button button = new Button();
+    button.setText("issue");
+    button.addClickListener(e -> UI.getCurrent().navigate(USER.viewName()));
+    return button;
+  }
+
+  private Button searchButton() {
+    Button button = new Button();
+    button.setText("search");
+    button.addClickListener(e -> UI.getCurrent().navigate(OBSERVER.viewName()));
+    return button;
+  }
+
+  private Button reportsButton() {
+    Button button = new Button();
+    button.setText("reports");
+    button.addClickListener(e -> UI.getCurrent().navigate(REPORTS.viewName()));
+    return button;
+  }
+
+  private Button logoutButton() {
+    Button button = new Button();
+    button.setIcon(VaadinIcon.EXIT.create());
+    button.addClickListener(e -> {
+      Subject subject = SecurityUtils.getSubject();
+      subject.logout();
+      UI.getCurrent().navigate("");
+      UI.getCurrent().getPage().executeJavaScript("location.reload();");
+    });
+    return button;
+  }
+
 }

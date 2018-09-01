@@ -17,57 +17,48 @@ package org.rapidpm.vaadin.v10.issuetracker;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Composite;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.rapidpm.dependencies.core.logger.HasLogger;
-import org.rapidpm.frp.model.Result;
-import org.rapidpm.vaadin.component.login.LoginView;
 import org.rapidpm.vaadin.v10.issuetracker.views.admin.AdminView;
-import org.rapidpm.vaadin.v10.issuetracker.views.login.MyLoginView;
+import org.rapidpm.vaadin.v10.issuetracker.views.login.LoginView;
 import org.rapidpm.vaadin.v10.issuetracker.views.reports.ReportsView;
 import org.rapidpm.vaadin.v10.issuetracker.views.search.SearchView;
 
 import java.util.function.Function;
 
-import static org.rapidpm.frp.matcher.Case.match;
-import static org.rapidpm.frp.matcher.Case.matchCase;
-import static org.rapidpm.frp.model.Result.success;
 import static org.rapidpm.vaadin.v10.issuetracker.RolesToView.*;
 
 @Route("")
 @Theme(value = Lumo.class, variant = Lumo.DARK)
-public class VaadinApp extends VerticalLayout implements HasLogger {
+public class VaadinApp extends VerticalLayout {
 
   @Override
   protected void onAttach(AttachEvent attachEvent) {
     super.onAttach(attachEvent);
     final Subject activeUser = SecurityUtils.getSubject();
-    logger().info("onAttach - activeUser - " + activeUser.getPrincipal());
-    roleToDefaultView()
-        .apply(activeUser)
-        .ifPresentOrElse(
-        success -> UI.getCurrent().navigate(success),
-        failed -> {
-          logger().warning("this should never happen !!! " + failed);
-          UI.getCurrent().navigate(LoginView.class);
-        }
-    );
+
+    VaadinApp.this.getUI()
+                  .ifPresentOrElse(
+                      (ui) -> ui.navigate(subject2View().apply(activeUser)),
+                      () -> {/*logging*/}
+                  );
   }
 
 
-  public static Function<Subject, Result<Class<? extends Composite>>> roleToDefaultView() {
-    return (activeUser) -> match(
-        matchCase(() -> success(MyLoginView.class)),
-        matchCase(() -> activeUser.hasRole(ADMIN.roleName()), () -> success(AdminView.class)),
-        matchCase(() -> activeUser.hasRole(USER.roleName()), () -> success(SearchView.class)),
-        matchCase(() -> activeUser.hasRole(REPORTS.roleName()), () -> success(ReportsView.class)),
-        matchCase(() -> activeUser.hasRole(OBSERVER.roleName()), () -> success(SearchView.class))
-    );
+  public static Function<Subject, Class<? extends Composite>> subject2View() {
+    return (subject) -> (subject.hasRole(ADMIN.roleName()))
+                        ? AdminView.class
+                        : (subject.hasRole(USER.roleName()))
+                          ? SearchView.class
+                          : (subject.hasRole(REPORTS.roleName()))
+                            ? ReportsView.class
+                            : (subject.hasRole(OBSERVER.roleName()))
+                              ? SearchView.class
+                              : LoginView.class;
   }
 
 }

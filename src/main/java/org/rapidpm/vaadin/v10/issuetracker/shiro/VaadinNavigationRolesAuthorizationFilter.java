@@ -25,7 +25,6 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.PathConfigProcessor;
 import org.apache.shiro.web.servlet.AdviceFilter;
-import org.rapidpm.dependencies.core.logger.HasLogger;
 
 import javax.servlet.Filter;
 import javax.servlet.ServletRequest;
@@ -43,7 +42,7 @@ import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.joining;
 import static org.apache.shiro.util.StringUtils.split;
 
-public class VaadinNavigationRolesAuthorizationFilter extends AdviceFilter implements PathConfigProcessor, HasLogger {
+public class VaadinNavigationRolesAuthorizationFilter extends AdviceFilter implements PathConfigProcessor {
 
 
   protected Map<String, List<String>> rolesByLocation = new LinkedHashMap<>();
@@ -54,7 +53,6 @@ public class VaadinNavigationRolesAuthorizationFilter extends AdviceFilter imple
 
   @Override
   public Filter processPathConfig(String path, String config) {
-    logger().fine("Adding path: " + path);
     final List<String> roles = (config == null)
                                ? emptyList()
                                : asList(split(config));
@@ -139,22 +137,13 @@ public class VaadinNavigationRolesAuthorizationFilter extends AdviceFilter imple
 
   protected boolean authorized(String location) {
     List<String> roles = rolesByLocation.getOrDefault(location, emptyList());
-
     if (roles.isEmpty()) {
-      logger().warning("Location: \"" + location + "\" (ignored)");
       return true;
     } else {
       Subject subject = SecurityUtils.getSubject();
-      Optional<String> matchingRole = roles
+      return roles
           .stream()
-          .filter(subject::hasRole)
-          .findFirst();
-      matchingRole
-          .ifPresentOrElse(
-              role -> logger().info("Location: \"" + location + "\" (match) for role " + role),
-              () -> logger().info("Location: \"" + location + "\" (doesn't match)")
-          );
-      return matchingRole.isPresent();
+          .anyMatch(subject::hasRole);
     }
   }
 
