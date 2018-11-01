@@ -15,50 +15,45 @@
  */
 package org.rapidpm.vaadin.v10.issuetracker;
 
+import static org.rapidpm.vaadin.v10.issuetracker.VaadinApp.ROUTE;
+
+import org.rapidpm.dependencies.core.logger.HasLogger;
+import org.rapidpm.vaadin.v10.issuetracker.ui.issues.issues.ui.IssuesView;
 import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
-import org.rapidpm.vaadin.v10.issuetracker.views.admin.AdminView;
-import org.rapidpm.vaadin.v10.issuetracker.views.login.LoginView;
-import org.rapidpm.vaadin.v10.issuetracker.views.reports.ReportsView;
-import org.rapidpm.vaadin.v10.issuetracker.views.search.SearchView;
 
-import java.util.function.Function;
-
-import static org.rapidpm.vaadin.v10.issuetracker.RolesToView.*;
-
-@Route("")
+@Route(value = ROUTE)
 @Theme(value = Lumo.class, variant = Lumo.DARK)
-public class VaadinApp extends VerticalLayout {
+@Push
+@Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
+public class VaadinApp extends VerticalLayout implements HasLogger {
+
+  public static final String ROUTE = "";
+
+  public VaadinApp() {
+
+  }
 
   @Override
   protected void onAttach(AttachEvent attachEvent) {
     super.onAttach(attachEvent);
-    final Subject activeUser = SecurityUtils.getSubject();
 
-    VaadinApp.this.getUI()
-                  .ifPresentOrElse(
-                      (ui) -> ui.navigate(subject2View().apply(activeUser)),
-                      () -> {/*logging*/}
-                  );
+    Object accepted = VaadinSession.getCurrent().getAttribute("ACCEPTED");
+    if (accepted != null && (Boolean) accepted) {
+      UI
+          .getCurrent()
+          .navigate(IssuesView.class);
+    } else {
+      UI
+          .getCurrent()
+          .navigate(LoginView.class);
+    }
   }
-
-
-  public static Function<Subject, Class<? extends Composite>> subject2View() {
-    return (subject) -> (subject.hasRole(ADMIN.roleName()))
-                        ? AdminView.class
-                        : (subject.hasRole(USER.roleName()))
-                          ? SearchView.class
-                          : (subject.hasRole(REPORTS.roleName()))
-                            ? ReportsView.class
-                            : (subject.hasRole(OBSERVER.roleName()))
-                              ? SearchView.class
-                              : LoginView.class;
-  }
-
 }
