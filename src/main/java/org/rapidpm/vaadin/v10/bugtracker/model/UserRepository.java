@@ -18,7 +18,7 @@ public class UserRepository implements HasLogger {
   }
 
   public User find(long userID) {
-    return findById(userID);
+    return findById(userID).get();
   }
 
 
