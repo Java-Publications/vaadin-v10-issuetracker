@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
-# Copyright © 2017 Sven Ruppert (sven.ruppert@gmail.com)
+# Copyright © 2013 Sven Ruppert (sven.ruppert@gmail.com)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,14 +15,5 @@
 # limitations under the License.
 #
 
-
-docker run \
-       -p 8080:8080 \
-       --rm \
-       --name run \
-       -v "$(pwd)":/usr/src/mymaven \
-       -w /usr/src/mymaven \
-       svenruppert/maven-3.5-jdk-openjdk-10 \
-       mvn meecrowave:bake
-
-#docker run -it -p 8080:8080 -p 5005:5005 --rm --name run -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven svenruppert/maven-3.5-jdk-oracle-08 mvn meecrowave:bake -DargLine="-Xmx256m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+docker rm db-postgresql
+docker-compose up

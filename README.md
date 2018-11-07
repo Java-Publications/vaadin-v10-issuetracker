@@ -5,6 +5,24 @@
 
 #Vaadin V10 - Demo application - Issuetracker
 
+In this example we are using the database first approach.
+Mostly older environments will have a database or some kind of storage that you have to deal with.
+Here we are using a relational database as source of data.
+
+
+
+## Docker Images
+### DB - Postgresql
+
+```bash
+build.sh
+
+```
+
+
+
+
+
 ## User and Roles
 This Issuetracker will give you the choice to 
 select roles for a user. The concept is quite simple.
