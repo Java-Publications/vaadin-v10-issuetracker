@@ -1,4 +1,4 @@
-package org.rapidpm.vaadin.v10.bugtracker.persistence;
+package org.rapidpm.vaadin.v10.bugtracker.persistence.entities;
 
 import java.util.Set;
 

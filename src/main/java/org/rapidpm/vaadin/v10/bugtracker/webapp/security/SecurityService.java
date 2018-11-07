@@ -5,12 +5,9 @@ import static org.rapidpm.frp.matcher.Case.match;
 import static org.rapidpm.frp.matcher.Case.matchCase;
 import static org.rapidpm.frp.model.Result.failure;
 import static org.rapidpm.frp.model.Result.success;
-
 import java.util.Objects;
 import java.util.Set;
-
 import javax.inject.Inject;
-
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Result;
 import org.rapidpm.vaadin.v10.bugtracker.model.User;
@@ -25,8 +22,8 @@ import com.vaadin.flow.server.VaadinSession;
 public class SecurityService implements HasLogger {
   public static final String ANONYMOUS = "anonymous";
   public static final String USER_ID_SESSION_KEY = "user_id";
-
-  private UserRepository userRepository = new UserRepository();
+@Inject
+  private UserRepository userRepository;
 
 
   public Set<UserRole> activeUserHasRoles() {

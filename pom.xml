@@ -91,6 +91,7 @@
     <rapidpm-dependencies.version>04.00.07-RPM</rapidpm-dependencies.version>
     <rapidpm-functional-reactive.version>00.07.06-RPM</rapidpm-functional-reactive.version>
 
+    <openjpa.version>3.0.0</openjpa.version>
   </properties>
 
   <repositories>
@@ -246,12 +247,12 @@
     </dependency>
 
 
-    <!--<dependency>-->
-      <!--<groupId>org.flywaydb</groupId>-->
-      <!--<artifactId>flyway-core</artifactId>-->
-      <!--<version>5.2.1</version>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>5.2.1</version>
+    </dependency>
+     <!--<dependency>-->
       <!--<groupId>com.h2database</groupId>-->
       <!--<artifactId>h2</artifactId>-->
       <!--<version>1.4.197</version>-->
@@ -263,6 +264,34 @@
 
   <build>
     <plugins>
+    <plugin>
+        <groupId>org.apache.openjpa</groupId>
+        <artifactId>openjpa-maven-plugin</artifactId>
+        <version>${openjpa.version}</version>
+        <configuration>
+          <includes>**/entities/*.class</includes>
+          <excludes>**/entities/XML*.class</excludes>
+          <addDefaultConstructor>true</addDefaultConstructor>
+          <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>enhancer</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <!-- set the version to be the same as the level in your runtime -->
+            <version>${openjpa.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <!--
           Dieses Plugin erlaubt es uns die Applikation einfach mittels der folgenden cmd line zu Starten:

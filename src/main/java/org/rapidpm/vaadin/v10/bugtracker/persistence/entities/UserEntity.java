@@ -1,9 +1,9 @@
-package org.rapidpm.vaadin.v10.bugtracker.persistence;
+package org.rapidpm.vaadin.v10.bugtracker.persistence.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,6 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
+@Table(name="login")
 public class UserEntity extends CoreEntity {
 
   @NotNull
@@ -29,7 +30,8 @@ public class UserEntity extends CoreEntity {
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "{com.example.webapp.invalidPassword}")
   private String password;
 
-  @Enumerated(EnumType.STRING)
+  //@Enumerated(EnumType.STRING)
+  @Transient
   @NotNull
   private UserRoleEntity role;
 

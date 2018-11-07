@@ -18,7 +18,7 @@ version: '3.5'
 
 services:
   db-postgresql:
-    image: publications/vaadin-v10-issuetracker-postgresql
+    image: postgres:11.0
     container_name: db-postgresql
     hostname: db-postgresql
     volumes:
