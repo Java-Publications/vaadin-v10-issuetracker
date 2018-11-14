@@ -1,17 +1,19 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui;
 
 import static java.util.Set.of;
-import static org.rapidpm.vaadin.v10.bugtracker.model.UserRole.ADMIN;
-import static org.rapidpm.vaadin.v10.bugtracker.model.UserRole.DEVELOPER;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.ADMIN;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.DEVELOPER;
 import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui.CreateIssueView.ROUTE;
 
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.SecurityService;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.UserService;
@@ -34,6 +36,7 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.createIssue")
 @Route(value = ROUTE, layout = MainLayout.class)
+@VisibleTo(DEVELOPER)
 public class CreateIssueView extends Composite<VerticalLayout> {
 
   public static final String ROUTE = "create-issue";
@@ -53,8 +56,6 @@ public class CreateIssueView extends Composite<VerticalLayout> {
     description.setSizeFull();
     description.setHeight("20em");
 
-    Set<User> users = userService.findByRole(UserRole.DEVELOPER);
-    owner.setItems(users);
     owner.setItemLabelGenerator(User::getName);
     owner.setPlaceholder(getTranslation("com.example.issues.owner"));
 
@@ -66,7 +67,8 @@ public class CreateIssueView extends Composite<VerticalLayout> {
     VerticalLayout formLayout = new VerticalLayout(viewTitle ,
                                                    title ,
                                                    description ,
-                                                   securityService.checkAgainstRoles(owner, of(DEVELOPER, ADMIN)),
+                                                   owner ,
+//                                                   securityService.checkAgainstRoles(owner , of(DEVELOPER , ADMIN)) ,
                                                    create);
     formLayout.setPadding(false);
     formLayout.setMargin(false);
@@ -75,6 +77,15 @@ public class CreateIssueView extends Composite<VerticalLayout> {
     Div mainLayout = new Div(formLayout);
     mainLayout.setWidth("100%");
     getContent().add(mainLayout);
+  }
+
+
+  @PostConstruct
+  private void postConstruct() {
+    Set<User> users = userService.findByRole(UserRole.DEVELOPER);
+    owner.setItems(users);
+
+    securityService.checkAgainstRoles(owner , of(DEVELOPER , ADMIN));
   }
 
   private void create() {

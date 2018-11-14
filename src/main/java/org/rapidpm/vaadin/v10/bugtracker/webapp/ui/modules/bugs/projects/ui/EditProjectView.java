@@ -1,10 +1,13 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.projects.ui;
 
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.DEVELOPER;
+
 import java.util.Optional;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.dialog.ConfirmDialog;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
@@ -32,6 +35,7 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.editProject")
 @Route(value = "edit-project", layout = MainLayout.class)
+@VisibleTo(DEVELOPER)
 public class EditProjectView extends Composite<VerticalLayout> implements HasUrlParameter<Long> {
 
   public static final String ROUTE = "issues";
@@ -68,8 +72,8 @@ public class EditProjectView extends Composite<VerticalLayout> implements HasUrl
     grid.setWidth("100%");
     grid.addColumn(User::getName).setHeader(getTranslation("com.example.issues.name"));
     grid.addColumn(User::getEmail).setHeader(getTranslation("com.example.issues.email"));
-    grid.addColumn(user -> getTranslation(user.getRole().getNameProperty()))
-        .setHeader(getTranslation("com.example.issues.role"));
+//    grid.addColumn(user -> getTranslation(user.getRole().getNameProperty()))
+//        .setHeader(getTranslation("com.example.issues.role"));
     grid.setItems(this.userService.findAll());
     grid.setSelectionMode(Grid.SelectionMode.MULTI);
     members = grid.asMultiSelect();

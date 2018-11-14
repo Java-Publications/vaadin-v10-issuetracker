@@ -1,7 +1,7 @@
 CREATE TABLE userrole
 (
   id      serial       NOT NULL,
-  name    varchar(255) NOT NULL,
+  name    varchar(255) NOT NULL UNIQUE ,
   deleted boolean DEFAULT FALSE,
   PRIMARY KEY (id)
 );
@@ -26,9 +26,7 @@ create index login_email_index
   on login (email);
 
 
-
-
-CREATE TABLE login_roles
+CREATE TABLE login_userrole
 (
   login_id    integer NOT NULL,
   userrole_id integer NOT NULL,
@@ -37,7 +35,7 @@ CREATE TABLE login_roles
   FOREIGN KEY (userrole_id) REFERENCES userrole (id)
 );
 
-comment on table login_roles
+comment on table login_userrole
   is 'A Users/Login can have 1..n UserRoles';
 
 
@@ -49,14 +47,13 @@ WHERE l.deleted = false;
 comment on view v_active_logins
   is 'Active Logins, that are able to log into the app';
 
-
 -- Default Data
 INSERT INTO userrole(name)
-VALUES ('ADMIN');
+VALUES ('com.example.role.admin');
 INSERT INTO userrole(name)
-VALUES ('DEVELOPER');
+VALUES ('com.example.role.developer');
 INSERT INTO userrole(name)
-VALUES ('USER');
+VALUES ('com.example.role.user');
 
 
 
@@ -75,30 +72,30 @@ INSERT INTO login(name, email, password)
 VALUES ('John', 'john@vaadin.com', 'demo');
 
 
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'ADMIN'));
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'DEVELOPER'));
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'USER'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'com.example.role.admin'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'com.example.role.developer'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Marcus'), (SELECT id from userrole r where r.name = 'com.example.role.user'));
 
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Alejandro'), (SELECT id from userrole r where r.name = 'DEVELOPER'));
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Alejandro'), (SELECT id from userrole r where r.name = 'USER'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Alejandro'), (SELECT id from userrole r where r.name = 'com.example.role.developer'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Alejandro'), (SELECT id from userrole r where r.name = 'com.example.role.user'));
 
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Sven'), (SELECT id from userrole r where r.name = 'DEVELOPER'));
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Sven'), (SELECT id from userrole r where r.name = 'USER'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Sven'), (SELECT id from userrole r where r.name = 'com.example.role.developer'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Sven'), (SELECT id from userrole r where r.name = 'com.example.role.user'));
 
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'John'), (SELECT id from userrole r where r.name = 'USER'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'John'), (SELECT id from userrole r where r.name = 'com.example.role.user'));
 
 
 
 -- A Deactivated User to test the system
 INSERT INTO login(name, email, password, deleted)
 VALUES ('Don Joe', 'd.joe@vaadin.com', 'demo', true);
-INSERT INTO login_roles(login_id, userrole_id)
-VALUES ((SELECT id from login u where u.name = 'Don Joe'), (SELECT id from userrole r where r.name = 'USER'));
+INSERT INTO login_userrole(login_id, userrole_id)
+VALUES ((SELECT id from login u where u.name = 'Don Joe'), (SELECT id from userrole r where r.name = 'com.example.role.user'));

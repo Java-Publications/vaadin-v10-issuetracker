@@ -28,7 +28,7 @@ CREATE TABLE status
 CREATE TABLE issue
 (
   id          serial       NOT NULL,
-  description text    DEFAULT NULL,
+  description messageKey    DEFAULT NULL,
   title       varchar(255) NOT NULL,
   status_id   integer      NOT NULL,
   reporter_id integer      NOT NULL,

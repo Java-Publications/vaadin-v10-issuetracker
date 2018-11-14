@@ -4,6 +4,7 @@ import static com.vaadin.flow.server.VaadinService.getCurrentRequest;
 
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.rapidpm.dependencies.core.logger.HasLogger;
@@ -35,29 +36,37 @@ public class MainLayout extends Composite<VerticalLayout> implements RouterLayou
   @Inject private SecurityService securityService;
 
   private VerticalLayout contentLayout = new VerticalLayout();
+  private MainHeader mainHeader = new MainHeader("com.example.appName");
+  private MainMenu mainMenu = new MainMenu();
+
+
+  @PostConstruct
+  private void postConstruct() {
+
+    if (! uiConfiguration.getHeaderComponentSuppliers().isEmpty()) {
+      uiConfiguration.getHeaderComponentSuppliers()
+                     .stream()
+                     .map(SerializableSupplier::get)
+                     .peek(e -> logger().info(e.getClass().getSimpleName()))
+                     .forEach(mainHeader::add);
+    }
+
+    if (securityService.isAnonymous()) {
+      logger().info("Anonymous User need no #signOut# button");
+    } else {
+      Anchor signOut = new Anchor("/logout" , getTranslation("com.example.webapp.signOut"));
+      signOut.addClassName("mainHeader-signout");
+      mainHeader.add(signOut);
+    }
+
+    uiConfiguration.getMenuOptions().forEach(mainMenu::addOption);
+
+  }
 
 
   public MainLayout() {
     Locale locale = new Locale(getCurrentRequest().getLocale().getLanguage());
     UI.getCurrent().setLocale(locale);
-
-    Anchor signOut = new Anchor("/logout" , getTranslation("com.example.webapp.signOut"));
-    signOut.addClassName("mainHeader-signout");
-
-    MainHeader mainHeader = new MainHeader(getTranslation("com.example.appName"));
-
-    if (! uiConfiguration.getHeaderComponentSuppliers().isEmpty()) {
-      uiConfiguration.getHeaderComponentSuppliers().stream().map(SerializableSupplier::get).forEach(mainHeader::add);
-    }
-
-    if (securityService.isAnonymous()) {
-      logger().info("Anonymous User need no #signOut# button" );
-    } else {
-      mainHeader.add(signOut);
-    }
-
-    MainMenu mainMenu = new MainMenu();
-    uiConfiguration.getMenuOptions().forEach(mainMenu::addOption);
 
     contentLayout.setMargin(false);
     contentLayout.setPadding(false);

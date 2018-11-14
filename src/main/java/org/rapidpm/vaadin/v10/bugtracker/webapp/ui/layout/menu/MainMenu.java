@@ -23,7 +23,7 @@ public class MainMenu extends Composite<VerticalLayout> {
     }
 
     public void addOption(MenuOption menuOption) {
-        addOption(menuOption.getViewClass(), menuOption.getText(), menuOption.getIcon());
+        addOption(menuOption.getViewClass(), getTranslation(menuOption.getMessageKey()), menuOption.getIcon());
     }
 
 }

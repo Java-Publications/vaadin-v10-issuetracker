@@ -7,7 +7,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
 import com.vaadin.flow.component.HasValidation;
 
 public class ValidationService {

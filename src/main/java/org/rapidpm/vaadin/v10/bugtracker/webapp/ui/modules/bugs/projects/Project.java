@@ -2,13 +2,12 @@ package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.projects;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
 
 public class Project {
 

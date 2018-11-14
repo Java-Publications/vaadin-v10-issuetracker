@@ -5,7 +5,8 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRepository;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.UserRepository;
+import org.rapidpm.vaadin.v10.bugtracker.model.ProjectRepository;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
 
 @VaadinSessionScoped

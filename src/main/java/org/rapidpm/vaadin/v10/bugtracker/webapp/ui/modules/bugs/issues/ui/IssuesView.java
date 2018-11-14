@@ -1,20 +1,21 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui;
 
 import static java.util.Set.of;
-import static org.rapidpm.vaadin.v10.bugtracker.model.UserRole.ADMIN;
-import static org.rapidpm.vaadin.v10.bugtracker.model.UserRole.DEVELOPER;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.ADMIN;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.DEVELOPER;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.USER;
 import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui.IssuesView.ROUTE;
 
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.SecurityService;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.security.visibility.manual.IlayVisibility;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.security.visibility.manual.ManualVisibilityEvaluator;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.BugsModule;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.Issue;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.IssueService;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.Status;
@@ -33,6 +34,7 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.issues")
 @Route(value = ROUTE, layout = MainLayout.class)
+@VisibleTo(USER)
 public class IssuesView extends Composite<VerticalLayout> {
 
   public static final String ROUTE = "issues";
@@ -41,16 +43,24 @@ public class IssuesView extends Composite<VerticalLayout> {
   @Inject private IssueService issueService;
   @Inject private SecurityService securityService;
 
-  private TextField title = new TextField();
-  private TextField reporter = new TextField();
-  private TextField owner = new TextField();
-  private ComboBox<Status> status = new ComboBox<>(null , Status.values());
-  private DatePicker date = new DatePicker();
-  private Grid<Issue> grid = new Grid<>();
+  @Inject private BugsModule bugsModule;
 
+  private final Span viewTitle = new Span(getTranslation("com.example.issues.issues"));
+  private final TextField title = new TextField();
+  private final TextField reporter = new TextField();
+  private final TextField owner = new TextField();
+  private final ComboBox<Status> status = new ComboBox<>(null , Status.values());
+  private final DatePicker date = new DatePicker();
+  private final Grid<Issue> grid = new Grid<>();
+
+
+  @PostConstruct
+  private void postConstruct() {
+    refreshGrid();
+
+  }
 
   public IssuesView() {
-    Span viewTitle = new Span(getTranslation("com.example.issues.issues"));
     viewTitle.addClassName("view-title");
 
     title.setPlaceholder(getTranslation("com.example.issues.title"));
@@ -95,17 +105,16 @@ public class IssuesView extends Composite<VerticalLayout> {
         .setFlexGrow(0)
         .setWidth("10em"); //TODO navigate to issue function
 
-
     grid.addComponentColumn(
         i -> {
           final Button btnEdit = new Button(VaadinIcon.EDIT.create() ,
-                                      e -> UI.getCurrent().navigate(EditIssueView.class , i.getIssueId()));
+                                            e -> UI.getCurrent().navigate(EditIssueView.class , i.getIssueId()));
 
           final Button btnView = new Button(VaadinIcon.EYE.create() ,
                                             e -> UI.getCurrent().navigate(IssueView.class , i.getIssueId()));
           return new HorizontalLayout(
               btnView ,
-              securityService.checkAgainstRoles(btnEdit, of(DEVELOPER, ADMIN)));
+              securityService.checkAgainstRoles(btnEdit , of(DEVELOPER , ADMIN)));
         }
     )
         .setFlexGrow(0)
@@ -116,7 +125,6 @@ public class IssuesView extends Composite<VerticalLayout> {
     getContent().expand(grid);
     getContent().setSizeFull();
 
-    refreshGrid();
   }
 
   private void refreshGrid() {

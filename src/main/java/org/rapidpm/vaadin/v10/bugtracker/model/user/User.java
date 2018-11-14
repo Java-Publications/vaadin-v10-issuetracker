@@ -1,14 +1,29 @@
-package org.rapidpm.vaadin.v10.bugtracker.model;
+package org.rapidpm.vaadin.v10.bugtracker.model.user;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
+
 public class User {
+
+  public static final User ANONYMOUS = new User(){
+    {
+      setDeleted(false);
+      setEmail("xx.xx@xx.xx");
+      setName("ANONYMOUS");
+      setPassword("");
+      setRoles(Set.of());
+      setUserId(-1L);
+    }
+  };
+
+
 
   @NotNull
   private Long userId;
@@ -28,9 +43,11 @@ public class User {
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "{com.example.webapp.invalidPassword}")
   private String password;
 
-  @Enumerated(EnumType.STRING)
+//  @Enumerated(EnumType.STRING)
+
   @NotNull
-  private UserRole role;
+  @NotEmpty
+  private Set<UserRole> roles;
 
   private boolean deleted;
 
@@ -66,12 +83,12 @@ public class User {
     this.password = password;
   }
 
-  public UserRole getRole() {
-    return role;
+  public Set<UserRole> getRoles() {
+    return roles;
   }
 
-  public void setRole(UserRole role) {
-    this.role = role;
+  public void setRoles(Set<UserRole> roles) {
+    this.roles = roles;
   }
 
   public boolean isDeleted() {
@@ -82,4 +99,16 @@ public class User {
     this.deleted = deleted;
   }
 
+
+  @Override
+  public String toString() {
+    return "User{" +
+           "userId=" + userId +
+           ", name='" + name + '\'' +
+           ", email='" + email + '\'' +
+           ", password='" + "xxxx" + '\'' +
+           ", roles=" + roles +
+           ", deleted=" + deleted +
+           '}';
+  }
 }

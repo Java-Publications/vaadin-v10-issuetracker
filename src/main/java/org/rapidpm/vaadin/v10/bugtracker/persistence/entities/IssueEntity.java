@@ -2,41 +2,56 @@ package org.rapidpm.vaadin.v10.bugtracker.persistence.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
+@Entity
+@Table(name = IssueEntity.TABLE_NAME)
 public class IssueEntity extends CoreEntity {
+
+  public static final String TABLE_NAME = "issue";
 
   @NotNull
   @NotEmpty
   @Size(min = 3, max = 255)
   private String title;
 
+  @Lob
+  @Column
   private String description;
 
   private LocalDate date;
 
-  @ManyToOne
-//  @Where(clause = "deleted = false")
+  @OneToOne
+  @Column(name = "owner_id")
   private UserEntity owner;
 
-  @ManyToOne
+  @OneToOne
   @NotNull
-//  @Where(clause = "deleted = false")
+  @Column(name = "reporter_id")
   private UserEntity reporter;
 
-  @Enumerated(EnumType.STRING)
+//  @Enumerated(EnumType.STRING)
+  @OneToOne
   @NotNull
+  @Column(name = "status_id")
   private StatusEntity status;
 
   @ManyToOne
   @NotNull
-//  @Where(clause = "deleted = false")
+  @Column(name = "project_id")
   private ProjectEntity project;
 
 

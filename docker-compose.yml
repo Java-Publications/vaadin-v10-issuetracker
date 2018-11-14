@@ -24,7 +24,7 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ${PWD}/_data/persistence/postgresql/data:/var/lib/postgresql/data
-      - ${PWD}/_data/persistence/postgresql/my-postgres.conf:/etc/postgresql/postgresql.conf
+#      - ${PWD}/_data/persistence/postgresql/my-postgres.conf:/etc/postgresql/postgresql.conf
     restart: always
     ports:
       - 5432:5432

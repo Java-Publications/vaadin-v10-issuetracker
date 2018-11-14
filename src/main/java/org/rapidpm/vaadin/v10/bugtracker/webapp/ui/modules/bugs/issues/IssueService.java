@@ -6,8 +6,10 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRepository;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.projects.ProjectRepository;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.UserRepository;
+import org.rapidpm.vaadin.v10.bugtracker.model.IssueRepository;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.BugtrackerSessionState;
+import org.rapidpm.vaadin.v10.bugtracker.model.ProjectRepository;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
 
 @VaadinSessionScoped
@@ -16,10 +18,10 @@ public class IssueService {
   @Inject private IssueRepository issueRepository;
   @Inject private ProjectRepository projectRepository;
   @Inject private UserRepository userRepository;
-  @Inject private Session session;
+  @Inject private BugtrackerSessionState bugtrackerSessionState;
 
   public Set<Issue> find(String title , String ownerName , String reporterName , Status status , LocalDate date) {
-    return issueRepository.find(session.getProjectId() ,
+    return issueRepository.find(bugtrackerSessionState.getProjectId() ,
                                 title ,
                                 ownerName.isEmpty() ? null : ownerName ,
                                 reporterName ,
@@ -42,8 +44,8 @@ public class IssueService {
   public void create(Issue issue) {
     issue.setStatus(Status.OPEN);
     issue.setDate(LocalDate.now());
-    issue.setReporter(userRepository.findById(session.getUserId()).orElse(null));
-    issue.setProject(projectRepository.findById(session.getProjectId()).orElse(null));
+    issue.setReporter(userRepository.findById(bugtrackerSessionState.getUserId()).orElse(null));
+    issue.setProject(projectRepository.findById(bugtrackerSessionState.getProjectId()).orElse(null));
     update(issue);
   }
 

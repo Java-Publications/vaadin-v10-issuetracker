@@ -1,9 +1,13 @@
 package org.rapidpm.vaadin.v10.bugtracker.persistence.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,8 +15,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="login")
+@Table(name = UserEntity.TABLE_NAME)
 public class UserEntity extends CoreEntity {
+
+  public static final String TABLE_NAME = "login";
+  public static final String TABLE_NAME_JOIN_USER_ROLES = "login_userrole";
 
   @NotNull
   @NotEmpty
@@ -31,11 +38,16 @@ public class UserEntity extends CoreEntity {
   private String password;
 
   //@Enumerated(EnumType.STRING)
-  @Transient
+//  @Transient
+  @OneToMany
   @NotNull
-  private UserRoleEntity role;
+  @JoinTable(
+      name = TABLE_NAME_JOIN_USER_ROLES,
+      joinColumns = {@JoinColumn(name = "login_id", referencedColumnName = COL_NAME_ID)},
+      inverseJoinColumns = {@JoinColumn(name = "userrole_id", referencedColumnName = COL_NAME_ID, unique = true)}
+  )
+  private Set<UserRoleEntity> roles;
 
-  private boolean deleted;
 
   public String getName() {
     return name;
@@ -61,20 +73,13 @@ public class UserEntity extends CoreEntity {
     this.password = password;
   }
 
-  public UserRoleEntity getRole() {
-    return role;
+  public Set<UserRoleEntity> getRoles() {
+    return roles;
   }
 
-  public void setRole(UserRoleEntity role) {
-    this.role = role;
+  public void setRole(Set<UserRoleEntity> roles) {
+    this.roles = roles;
   }
 
-  public boolean isDeleted() {
-    return deleted;
-  }
-
-  public void setDeleted(boolean deleted) {
-    this.deleted = deleted;
-  }
 
 }

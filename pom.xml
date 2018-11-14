@@ -92,6 +92,8 @@
     <rapidpm-functional-reactive.version>00.07.06-RPM</rapidpm-functional-reactive.version>
 
     <openjpa.version>3.0.0</openjpa.version>
+    <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+
   </properties>
 
   <repositories>
@@ -149,10 +151,18 @@
       <version>${meecrowave.version}</version>
       <scope>compile</scope>
     </dependency>
+
+
+    <!--Persistence related-->
     <dependency>
       <groupId>org.apache.meecrowave</groupId>
       <artifactId>meecrowave-jpa</artifactId>
       <version>${meecrowave.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+      <version>5.2.1</version>
     </dependency>
     <dependency>
       <groupId>com.zaxxer</groupId>
@@ -164,6 +174,20 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.5</version>
     </dependency>
+    <!--<dependency>-->
+    <!--<groupId>com.h2database</groupId>-->
+    <!--<artifactId>h2</artifactId>-->
+    <!--<version>1.4.197</version>-->
+    <!--<scope>runtime</scope>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct
+      </artifactId> <!-- OR use this with Java 8 and beyond: <artifactId>mapstruct-jdk8</artifactId> -->
+      <version>${org.mapstruct.version}</version>
+    </dependency>
+
+
     <!--Vaadin -->
     <dependency>
       <groupId>com.vaadin</groupId>
@@ -183,30 +207,25 @@
 
     <!--Security-->
     <!--<dependency>-->
-      <!--<groupId>org.ilay</groupId>-->
-      <!--<artifactId>ilay-common-api</artifactId>-->
-      <!--<version>3.0.0-SNAPSHOT</version>-->
+    <!--<groupId>org.ilay</groupId>-->
+    <!--<artifactId>ilay-common-api</artifactId>-->
+    <!--<version>3.0.0-SNAPSHOT</version>-->
     <!--</dependency>-->
     <!--<dependency>-->
-      <!--<groupId>org.ilay</groupId>-->
-      <!--<artifactId>ilay-navigation</artifactId>-->
-      <!--<version>3.0.0-SNAPSHOT</version>-->
+    <!--<groupId>org.ilay</groupId>-->
+    <!--<artifactId>ilay-navigation</artifactId>-->
+    <!--<version>3.0.0-SNAPSHOT</version>-->
     <!--</dependency>-->
     <!--<dependency>-->
-      <!--<groupId>org.ilay</groupId>-->
-      <!--<artifactId>ilay-visibility-api</artifactId>-->
-      <!--<version>3.0.0-SNAPSHOT</version>-->
+    <!--<groupId>org.ilay</groupId>-->
+    <!--<artifactId>ilay-visibility-api</artifactId>-->
+    <!--<version>3.0.0-SNAPSHOT</version>-->
     <!--</dependency>-->
     <!--<dependency>-->
-      <!--<groupId>org.ilay</groupId>-->
-      <!--<artifactId>ilay-visibility-nocdi</artifactId>-->
-      <!--<version>3.0.0-SNAPSHOT</version>-->
+    <!--<groupId>org.ilay</groupId>-->
+    <!--<artifactId>ilay-visibility-nocdi</artifactId>-->
+    <!--<version>3.0.0-SNAPSHOT</version>-->
     <!--</dependency>-->
-
-
-
-
-
 
 
     <dependency>
@@ -247,24 +266,27 @@
     </dependency>
 
 
-    <dependency>
-      <groupId>org.flywaydb</groupId>
-      <artifactId>flyway-core</artifactId>
-      <version>5.2.1</version>
-    </dependency>
-     <!--<dependency>-->
-      <!--<groupId>com.h2database</groupId>-->
-      <!--<artifactId>h2</artifactId>-->
-      <!--<version>1.4.197</version>-->
-      <!--<scope>runtime</scope>-->
-    <!--</dependency>-->
-
-
   </dependencies>
 
   <build>
     <plugins>
-    <plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <!--<source>${maven.compiler.source}</source> &lt;!&ndash; or 1.7 or 1.8, .. &ndash;&gt;-->
+          <!--<target>${maven.compiler.target}</target>-->
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>${org.mapstruct.version}</version>
+            </path>
+          </annotationProcessorPaths>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.openjpa</groupId>
         <artifactId>openjpa-maven-plugin</artifactId>
         <version>${openjpa.version}</version>

@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.projects.Project;
 
 public class Issue {

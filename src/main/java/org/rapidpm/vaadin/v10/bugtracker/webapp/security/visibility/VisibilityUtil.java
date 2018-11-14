@@ -43,6 +43,11 @@ public class VisibilityUtil {
     component.setVisible(VisibilityUtil.<ANNOTATION>evaluateVisibilityOnClass(component.getClass()));
   }
 
+
+
+
+
+
   public static <ANNOTATION extends Annotation> boolean evaluateVisibilityOnClass(Class<? extends Component> componentClass) {
     Objects.requireNonNull(componentClass);
 

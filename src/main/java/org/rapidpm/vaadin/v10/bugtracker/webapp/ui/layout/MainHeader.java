@@ -11,10 +11,10 @@ public class MainHeader extends Composite<HorizontalLayout> {
 
     private HorizontalLayout contentLayout = new HorizontalLayout();
 
-    public MainHeader(String title) {
+    public MainHeader(String titleMsgKey) {
         Image logo = new Image("/frontend/images/app-logo.png", "App logo");
         logo.addClassName("header-logo");
-        Span appName = new Span(title);
+        Span appName = new Span(getTranslation(titleMsgKey));
         appName.addClassName("header-app-name");
 
         contentLayout.setPadding(true);

@@ -1,58 +1,70 @@
-package org.rapidpm.vaadin.v10.bugtracker.model;
+package org.rapidpm.vaadin.v10.bugtracker.model.user;
+
+import static java.util.stream.Collectors.toSet;
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.byNameProperty;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.sql.DataSource;
+
 import org.apache.meecrowave.jpa.api.Jpa;
 import org.apache.meecrowave.jpa.api.Unit;
 import org.rapidpm.dependencies.core.logger.HasLogger;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.UserEntity;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.UserRoleEntity;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.infrastructure.JpaConfig;
 
 @ApplicationScoped
 public class UserRepository implements HasLogger {
-@Inject
-private DataSource ds;
+
   @Inject
   @Unit(name = JpaConfig.PERSISTENCE_UNIT)
   private EntityManager em;
-  
+
   public Boolean checkCredentials(String login , String passwd) {
     //TODO impl. needed
     logger().info("checkCredentials for " + login);
     return Boolean.TRUE;
   }
 
-  public User find(long userID) {
-    return findById(userID).get();
-  }
-
-
   //    @Query("select u from Project p join p.members u where" + " p.id = :projectId" +
 //            " and lower(u.name) like concat('%', lower(:name), '%')" + " and (:role is null or u.role = :role)")
   public Set<User> find(Long projectId , String name , UserRole role) {
     logger().info("find : " + projectId + " / " + name + " / " + name + " / " + role);
-    return Set.of();
+    throw new RuntimeException("not yet implemented : "
+                               + UserRepository.class.getSimpleName()
+                               + " - find(Long projectId , String name , UserRole role)");
+//    return Set.of();
   }
-@Jpa(transactional=true)
+
+  @Jpa(transactional = true)
   public Optional<User> findById(Long userId) {
-    logger().info(ds.toString());
     logger().info("findByID id " + userId);
-    UserEntity userEntity = em.find(UserEntity.class, userId);
-    if(userEntity!=null) {
-      User user=new User();
+    UserEntity userEntity = em.find(UserEntity.class , userId);
+    if (userEntity != null) {
+      User user = new User();
       user.setUserId(userEntity.getId());
       user.setName(userEntity.getName());
-      return Optional.ofNullable(user);      
-    }
-    else {
+      user.setEmail(userEntity.getEmail());
+      Set<UserRoleEntity> roles = userEntity.getRoles();
+
+      user.setRoles(
+          roles
+              .stream()
+              .map(e -> byNameProperty(e.getName()))
+              .peek(r -> logger().info("findById add role to user " + r))
+              .collect(toSet())
+      );
+      return Optional.of(user);
+    } else {
       return Optional.empty();
     }
-    
+
   }
 
   public void save(User user) {

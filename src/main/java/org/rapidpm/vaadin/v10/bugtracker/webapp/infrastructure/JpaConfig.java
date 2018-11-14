@@ -6,7 +6,12 @@ import javax.sql.DataSource;
 import org.apache.meecrowave.jpa.api.PersistenceUnitInfoBuilder;
 import org.flywaydb.core.Flyway;
 import org.rapidpm.dependencies.core.logger.HasLogger;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.CoreEntity;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.IssueEntity;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.ProjectEntity;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.StatusEntity;
 import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.UserEntity;
+import org.rapidpm.vaadin.v10.bugtracker.persistence.entities.UserRoleEntity;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -19,10 +24,8 @@ public class JpaConfig implements HasLogger {
   @Produces
   @ApplicationScoped
   public DataSource dataSource() {
-    
     // Examines both filesystem and classpath for .properties file
     HikariConfig config = new HikariConfig("/META-INF/hikari.properties");
-   
     HikariDataSource ds = new HikariDataSource(config);
     dbMigration(ds);
     //TODO init OpenTracing
@@ -42,11 +45,15 @@ public class JpaConfig implements HasLogger {
         .setUnitName(PERSISTENCE_UNIT)
         .setDataSource(ds)
  //       .setExcludeUnlistedClasses(true)
-//        .addManagedClazz(T0001UsersEntity.class)
+        .addManagedClazz(CoreEntity.class)
         .addManagedClazz(UserEntity.class)
-     //   .addManagedClazz(UserRoleEntity.class)
-        .addProperty("openjpa.RuntimeUnenhancedClasses" , "supported")
-        .addProperty("openjpa.jdbc.SynchronizeMappings" , "buildSchema");
+        .addManagedClazz(UserRoleEntity.class)
+        .addManagedClazz(StatusEntity.class)
+        .addManagedClazz(IssueEntity.class)
+        .addManagedClazz(ProjectEntity.class)
+        .addProperty("openjpa.RuntimeUnenhancedClasses" , "supported");
+    //don not use this with flyway
+//        .addProperty("openjpa.jdbc.SynchronizeMappings" , "buildSchema");
   }
 
 

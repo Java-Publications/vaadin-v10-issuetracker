@@ -1,12 +1,16 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.ui;
 
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.ADMIN;
 import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.ui.CreateUserView.ROUTE;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRoleRepository;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.ValidationService;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.UserService;
@@ -27,17 +31,27 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.createUser")
 @Route(value = ROUTE, layout = MainLayout.class)
+@VisibleTo(ADMIN)
 public class CreateUserView extends Composite<VerticalLayout> {
 
   public static final String ROUTE = "create-user";
 
   @Inject private UserService userService;
+  @Inject private UserRoleRepository userRoleRepository;
   @Inject private ValidationService validationService;
 
   private TextField name = new TextField(getTranslation("com.example.issues.name"));
   private TextField email = new TextField(getTranslation("com.example.issues.email"));
   private PasswordField password = new PasswordField(getTranslation("com.example.issues.password"));
   private ComboBox<UserRole> role = new ComboBox<>(getTranslation("com.example.issues.role") , UserRole.values());
+
+
+  @PostConstruct
+  private void postConstruct(){
+    role.setItems(userRoleRepository.findAll());
+  }
+
+
 
   public CreateUserView() {
 

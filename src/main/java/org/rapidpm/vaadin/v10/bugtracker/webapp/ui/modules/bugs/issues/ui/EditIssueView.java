@@ -1,5 +1,6 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui;
 
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.DEVELOPER;
 import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.ui.EditIssueView.ROUTE;
 
 import java.util.Optional;
@@ -7,8 +8,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.dialog.ConfirmDialog;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
@@ -34,6 +36,7 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.editIssue")
 @Route(value = ROUTE, layout = MainLayout.class)
+@VisibleTo(DEVELOPER)
 public class EditIssueView extends Composite<VerticalLayout> implements HasUrlParameter<Long> {
 
   public static final String ROUTE = "edit-issue";

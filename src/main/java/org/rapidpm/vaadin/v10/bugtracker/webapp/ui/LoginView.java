@@ -4,7 +4,7 @@ import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.LoginView.ROUTE;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.PermissionsChangedEvent;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.SecurityService;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;

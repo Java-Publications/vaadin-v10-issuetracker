@@ -5,28 +5,29 @@ import java.util.Objects;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
+//TODO Kotlin DataClass ??
 public class MenuOption {
 
   private final Class<? extends Component> viewClass;
-  private final String text;
+  private final String messageKey;
   private final VaadinIcon icon;
 
-  public MenuOption(Class<? extends Component> viewClass , String text , VaadinIcon icon) {
+  MenuOption(Class<? extends Component> viewClass , String messageKey , VaadinIcon icon) {
     this.viewClass = viewClass;
-    this.text = text;
+    this.messageKey = messageKey;
     this.icon = icon;
   }
 
-  public Class<? extends Component> getViewClass() {
+  Class<? extends Component> getViewClass() {
     return viewClass;
   }
 
 
-  public String getText() {
-    return text;
+  String getMessageKey() {
+    return messageKey;
   }
 
-  public VaadinIcon getIcon() {
+  VaadinIcon getIcon() {
     return icon;
   }
 
@@ -36,20 +37,20 @@ public class MenuOption {
     if (! (o instanceof MenuOption)) return false;
     MenuOption that = (MenuOption) o;
     return Objects.equals(viewClass , that.viewClass) &&
-           Objects.equals(text , that.text) &&
+           Objects.equals(messageKey , that.messageKey) &&
            icon == that.icon;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(viewClass , text , icon);
+    return Objects.hash(viewClass , messageKey , icon);
   }
 
   @Override
   public String toString() {
     return "MenuOption{" +
            "viewClass=" + viewClass +
-           ", text='" + text + '\'' +
+           ", messageKey='" + messageKey + '\'' +
            ", icon=" + icon +
            '}';
   }

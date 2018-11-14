@@ -1,19 +1,21 @@
 package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.ui;
 
+import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.ADMIN;
 import static org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.ui.EditUserView.ROUTE;
 
 import java.util.Optional;
 
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.ValidationService;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.security.navigation.VisibleTo;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.services.i18npagetitle.I18NPageTitle;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.dialog.ConfirmDialog;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.layout.MainLayout;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.admin.users.UserService;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.Session;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.BugtrackerSessionState;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -34,13 +36,14 @@ import com.vaadin.flow.router.Route;
 
 @I18NPageTitle(messageKey = "com.example.issues.editUser")
 @Route(value = ROUTE, layout = MainLayout.class)
+@VisibleTo(ADMIN)
 public class EditUserView extends Composite<VerticalLayout> implements HasUrlParameter<Long> {
 
   public static final String ROUTE = "edit-user";
 
 
   @Inject private UserService userService;
-  @Inject private Session session;
+  @Inject private BugtrackerSessionState bugtrackerSessionState;
   @Inject private ValidationService validationService;
 
   private TextField name = new TextField(getTranslation("com.example.issues.name"));
@@ -102,7 +105,7 @@ public class EditUserView extends Composite<VerticalLayout> implements HasUrlPar
                       e -> {
                         Long userId = user.getUserId();
                         userService.delete(userService.findById(userId).get());
-                        if (session.getUserId().equals(userId)) {
+                        if (bugtrackerSessionState.getUserId().equals(userId)) {
                           UI.getCurrent().getPage().executeJavaScript("window.location='/logout'");
                         } else {
                           UI.getCurrent().navigate(UsersView.class);

@@ -4,27 +4,28 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.User;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRepository;
-import org.rapidpm.vaadin.v10.bugtracker.model.UserRole;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
+import org.rapidpm.vaadin.v10.bugtracker.model.user.UserRepository;
+import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import org.rapidpm.vaadin.v10.bugtracker.webapp.security.password.PasswordEncoder;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.issues.Session;
+import org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.BugtrackerSessionState;
 
-
+@ApplicationScoped
 public class UserService {
 
   @Inject private UserRepository userRepository;
-  @Inject private Session session;
+  @Inject private BugtrackerSessionState bugtrackerSessionState;
   @Inject private PasswordEncoder passwordEncoder;
 
   public Set<User> find(String name , UserRole role) {
-    return userRepository.find(session.getProjectId() , name , role);
+    return userRepository.find(bugtrackerSessionState.getProjectId() , name , role);
   }
 
   public Set<User> findByRole(UserRole role) {
-    return userRepository.find(session.getProjectId() , "" , role);
+    return userRepository.find(bugtrackerSessionState.getProjectId() , "" , role);
   }
 
   public void save(User user) {
