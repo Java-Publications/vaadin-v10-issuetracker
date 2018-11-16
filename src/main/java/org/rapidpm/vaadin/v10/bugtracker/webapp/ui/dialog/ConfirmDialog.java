@@ -19,6 +19,7 @@ public class ConfirmDialog extends Composite<Dialog> {
 
     Button no = new Button(noCaption , e -> close());
     Button yes = new Button(yesCaption , e -> close());
+    //TODO Vaadin 11/12 should be used -> set Theme Variant Method
     yes.getElement().setAttribute("theme" , "primary");
     yes.addClickListener(confirmClickListener);
 

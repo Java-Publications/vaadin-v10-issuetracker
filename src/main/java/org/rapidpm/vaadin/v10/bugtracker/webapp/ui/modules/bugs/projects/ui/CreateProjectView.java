@@ -2,6 +2,7 @@ package org.rapidpm.vaadin.v10.bugtracker.webapp.ui.modules.bugs.projects.ui;
 
 import static org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole.ADMIN;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.rapidpm.vaadin.v10.bugtracker.model.user.User;
@@ -57,7 +58,7 @@ public class CreateProjectView extends Composite<VerticalLayout> {
     grid.addColumn(User::getEmail).setHeader(getTranslation("com.example.issues.email"));
 //    grid.addColumn(user -> getTranslation(user.getRole().getNameProperty()))
 //        .setHeader(getTranslation("com.example.issues.role"));
-    grid.setItems(this.userService.findAll());
+
     grid.setSelectionMode(Grid.SelectionMode.MULTI);
     members = grid.asMultiSelect();
 
@@ -78,6 +79,12 @@ public class CreateProjectView extends Composite<VerticalLayout> {
     getContent().setAlignSelf(FlexComponent.Alignment.END , create);
   }
 
+  @PostConstruct
+  private void postConstruct(){
+    grid.setItems(this.userService.findAll());
+  }
+
+
   private void create() {
     try {
       Project project = new Project();
@@ -85,7 +92,7 @@ public class CreateProjectView extends Composite<VerticalLayout> {
       binder.bindInstanceFields(this);
       binder.writeBean(project);
       projectService.saveOrUpdate(project);
-      bugsModule.updateProjectsSelector();
+      bugsModule.updateProjectsSelectorItems();
       UI.getCurrent().navigate(ProjectsView.class);
 
     } catch (ValidationException e) {

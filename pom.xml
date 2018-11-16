@@ -335,35 +335,35 @@
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.github.webdriverextensions</groupId>
-        <artifactId>webdriverextensions-maven-plugin</artifactId>
-        <version>${webdriverextensions-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>install-drivers</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
-          <!--Distributed FS-->
-          <!--<installationDirectory>/Users/andidev/drivers</installationDirectory>-->
-          <installationDirectory>_data/webdrivers</installationDirectory>
-          <drivers>
-            <driver>
-              <name>chromedriver</name>
-            </driver>
+      <!--<plugin>-->
+        <!--<groupId>com.github.webdriverextensions</groupId>-->
+        <!--<artifactId>webdriverextensions-maven-plugin</artifactId>-->
+        <!--<version>${webdriverextensions-maven-plugin.version}</version>-->
+        <!--<executions>-->
+          <!--<execution>-->
+            <!--<goals>-->
+              <!--<goal>install-drivers</goal>-->
+            <!--</goals>-->
+          <!--</execution>-->
+        <!--</executions>-->
+        <!--<configuration>-->
+          <!--<keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>-->
+          <!--&lt;!&ndash;Distributed FS&ndash;&gt;-->
+          <!--&lt;!&ndash;<installationDirectory>/Users/andidev/drivers</installationDirectory>&ndash;&gt;-->
+          <!--<installationDirectory>_data/webdrivers</installationDirectory>-->
+          <!--<drivers>-->
             <!--<driver>-->
-            <!--<name>operadriver</name>-->
+              <!--<name>chromedriver</name>-->
             <!--</driver>-->
-            <!--<driver>-->
-            <!--<name>geckodriver</name>-->
-            <!--</driver>-->
-          </drivers>
-        </configuration>
-      </plugin>
+            <!--&lt;!&ndash;<driver>&ndash;&gt;-->
+            <!--&lt;!&ndash;<name>operadriver</name>&ndash;&gt;-->
+            <!--&lt;!&ndash;</driver>&ndash;&gt;-->
+            <!--&lt;!&ndash;<driver>&ndash;&gt;-->
+            <!--&lt;!&ndash;<name>geckodriver</name>&ndash;&gt;-->
+            <!--&lt;!&ndash;</driver>&ndash;&gt;-->
+          <!--</drivers>-->
+        <!--</configuration>-->
+      <!--</plugin>-->
     </plugins>
   </build>
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.icon.VaadinIcon;
 
-//TODO Kotlin DataClass ??
+//QUEST Kotlin DataClass ??
 public class MenuOption {
 
   private final Class<? extends Component> viewClass;

@@ -34,6 +34,7 @@ public class UserEntity extends CoreEntity {
   @NotNull
   @NotEmpty
   @Size(min = 6, max = 255)
+  //TODO remove this here
   @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "{com.example.webapp.invalidPassword}")
   private String password;
 

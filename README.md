@@ -22,6 +22,25 @@ demo Badges
 [![Coverage Status](https://img.shields.io/codecov/c/github/mapstruct/mapstruct.svg)](https://codecov.io/gh/mapstruct/mapstruct)
 [![Gitter](https://img.shields.io/gitter/room/mapstruct/mapstruct.svg)](https://gitter.im/mapstruct/mapstruct-users)
 
+## Description
+### The UseCases
+
+### the Persistence Model / ERD
+
+### Modelmapping / JPA / Data Verification / jUnit
+* Check if for every DB Entry ( UserRole) the is a corresponding enum
+
+
+
+
+
+## Modules
+Maven Modules for
+* persistence mapping from database to JPA Entities
+* JPA Entities to Business Pojos
+* UI infrastructure 
+
+
 ## Docker Images
 ### DB - Postgresql
 

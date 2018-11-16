@@ -29,7 +29,6 @@ import com.vaadin.flow.server.VaadinSession;
 @UIScoped
 public class BugsModule implements BusinessAppModule , HasLogger {
 
-
   @Inject private UIConfiguration uiConfiguration;
   @Inject private ProjectRepository projectRepository;
   @Inject private UserRepository userRepository;
@@ -58,17 +57,20 @@ public class BugsModule implements BusinessAppModule , HasLogger {
     }
   }
 
-  public void updateProjectsSelector() {
+  public void updateProjectsSelectorItems() {
     Long userId = bugtrackerSessionState.getUserId();
-    logger().info("updateProjectsSelector for UserID " + userId);
+    logger().info("updateProjectsSelectorItems for UserID " + userId);
+    //TODO NPE
     User user = userRepository.findById(userId).get();
     List<Project> projects = projectRepository.findByMembersIn(user);
     projectsSelector.setItems(projects);
 
     if (! projects.isEmpty()) {
       long projectId = bugtrackerSessionState.getProjectId();
-      //TODO Performance Problem against DB
-      Optional<Project> project = projects.stream().filter(p -> p.getProjectId().equals(projectId)).findFirst();
+      Optional<Project> project = projects
+          .stream()
+          .filter(p -> p.getProjectId().equals(projectId))
+          .findFirst();
       projectsSelector.setValue(project.orElse(projects.get(0)));
     }
   }
@@ -81,10 +83,12 @@ public class BugsModule implements BusinessAppModule , HasLogger {
 
   private void addHeaderOptions() {
     uiConfiguration.addHeaderComponent(() -> {
-      projectsSelector = new ComboBox<>(null);
+      projectsSelector = new ComboBox<>();
+      projectsSelector.setPlaceholder(projectsSelector.getTranslation("com.example.issues.project-selector"));
       projectsSelector.setItemLabelGenerator(Project::getName);
-      updateProjectsSelector();
+      projectsSelector.setWidth("250px");
       projectsSelector.addValueChangeListener(e -> selectProject(e.getValue()));
+      updateProjectsSelectorItems();
       return projectsSelector;
     });
   }
@@ -97,17 +101,23 @@ public class BugsModule implements BusinessAppModule , HasLogger {
   }
 
   private void addMenuOptions() {
-    uiConfiguration.addMenuOption(IssuesView.class , "com.example.issues.issues" , VaadinIcon.BUG);
+    uiConfiguration.addMenuOption(IssuesView.class ,
+                                  "com.example.issues.issues" ,
+                                  VaadinIcon.BUG);
     uiConfiguration.addMenuOption(CreateIssueView.class ,
                                   "com.example.issues.createIssue" ,
                                   VaadinIcon.PLUS
     );
-    uiConfiguration.addMenuOption(ProjectsView.class , "com.example.issues.projects" , VaadinIcon.CODE);
+    uiConfiguration.addMenuOption(ProjectsView.class ,
+                                  "com.example.issues.projects" ,
+                                  VaadinIcon.CODE);
     uiConfiguration.addMenuOption(CreateProjectView.class ,
                                   "com.example.issues.createProject" ,
                                   VaadinIcon.PLUS_SQUARE_O
     );
-    uiConfiguration.addMenuOption(UsersView.class , "com.example.issues.users" , VaadinIcon.USERS);
+    uiConfiguration.addMenuOption(UsersView.class ,
+                                  "com.example.issues.users" ,
+                                  VaadinIcon.USERS);
   }
 
 }

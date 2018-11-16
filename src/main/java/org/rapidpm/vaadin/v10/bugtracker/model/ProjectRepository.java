@@ -1,11 +1,14 @@
 package org.rapidpm.vaadin.v10.bugtracker.model;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.apache.meecrowave.jpa.api.Unit;
 import org.rapidpm.dependencies.core.logger.HasLogger;
@@ -26,9 +29,10 @@ public class ProjectRepository implements HasLogger {
   public List<Project> findByMembersIn(User user) {
     logger().info("findByMembersIn user " + user);
 
-    em
+    TypedQuery<ProjectEntity> query = em
         .createQuery("select p from ProjectEntity as p where p.deleted=false" ,
-                     ProjectEntity.class)
+                     ProjectEntity.class);
+    return query
         .getResultList()
         .stream()
         .map(e -> {
@@ -47,10 +51,8 @@ public class ProjectRepository implements HasLogger {
           prj.setName(e.getName());
           prj.setProjectId(e.getId());
           return prj;
-        });
-
-
-    return List.of();
+        })
+    .collect(toList());
   }
 
   public Optional<Project> findById(Long projectId) {

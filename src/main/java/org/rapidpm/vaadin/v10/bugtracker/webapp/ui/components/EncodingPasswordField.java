@@ -10,9 +10,10 @@ import org.rapidpm.vaadin.v10.bugtracker.webapp.security.password.PasswordEncode
  */
 public class EncodingPasswordField {
 
+  //ok
   @Inject private PasswordEncoder passwordEncoder;
 
 
-
+//TODO implement TextField
 
 }

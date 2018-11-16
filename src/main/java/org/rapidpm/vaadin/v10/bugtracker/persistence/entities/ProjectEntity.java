@@ -14,7 +14,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-//@Where(clause = "deleted = false")
 @Table(name = TABLE_NAME)
 public class ProjectEntity extends CoreEntity {
 
@@ -28,12 +27,10 @@ public class ProjectEntity extends CoreEntity {
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = TABLE_NAME_JOIN_USERS,
-      joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = COL_NAME_ID)},
-      inverseJoinColumns = {@JoinColumn(name = "members_id", referencedColumnName = COL_NAME_ID)}
+      joinColumns = {@JoinColumn(name = "project_id", referencedColumnName = COL_NAME_ID)}
   )
   private Set<UserEntity> members;
 
-  private boolean deleted;
 
 
   @Override
@@ -41,7 +38,6 @@ public class ProjectEntity extends CoreEntity {
     return "Project{" +
            "name='" + name + '\'' +
            ", members=" + members +
-           ", deleted=" + deleted +
            '}';
   }
 
@@ -61,11 +57,4 @@ public class ProjectEntity extends CoreEntity {
     this.members = members;
   }
 
-  public boolean isDeleted() {
-    return deleted;
-  }
-
-  public void setDeleted(boolean deleted) {
-    this.deleted = deleted;
-  }
 }

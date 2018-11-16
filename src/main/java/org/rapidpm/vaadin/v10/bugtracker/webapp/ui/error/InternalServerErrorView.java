@@ -22,7 +22,9 @@ import com.vaadin.flow.router.ParentLayout;
 @ParentLayout(MainLayout.class)
 @HtmlImport("/frontend/styles/shared-styles.html")
 @I18NPageTitle(messageKey = "com.example.webapp.error")
-public class InternalServerErrorView extends Composite<VerticalLayout> implements HasErrorParameter<Exception>, HasLogger {
+public class InternalServerErrorView
+    extends Composite<VerticalLayout>
+    implements HasErrorParameter<Exception>, HasLogger {
 
 
   @Override

@@ -3,6 +3,7 @@ package org.rapidpm.vaadin.v10.bugtracker.webapp.infrastructure;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.sql.DataSource;
+
 import org.apache.meecrowave.jpa.api.PersistenceUnitInfoBuilder;
 import org.flywaydb.core.Flyway;
 import org.rapidpm.dependencies.core.logger.HasLogger;
@@ -52,7 +53,7 @@ public class JpaConfig implements HasLogger {
         .addManagedClazz(IssueEntity.class)
         .addManagedClazz(ProjectEntity.class)
         .addProperty("openjpa.RuntimeUnenhancedClasses" , "supported");
-    //don not use this with flyway
+    //INFO do not use this with flyway
 //        .addProperty("openjpa.jdbc.SynchronizeMappings" , "buildSchema");
   }
 

@@ -6,5 +6,9 @@ public class AdminModule implements BusinessAppModule {
   @Override
   public void initialize() {
 
+    //clear existing Layout elements
+
+
+
   }
 }

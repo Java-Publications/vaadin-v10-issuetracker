@@ -109,7 +109,7 @@ public class EditProjectView extends Composite<VerticalLayout> implements HasUrl
                       getTranslation("com.example.issues.no") ,
                       e -> {
                         projectService.delete(project);
-                        bugsModule.updateProjectsSelector();
+                        bugsModule.updateProjectsSelectorItems();
                         UI.getCurrent().navigate(ProjectsView.class);
                       }).open();
   }
@@ -119,7 +119,7 @@ public class EditProjectView extends Composite<VerticalLayout> implements HasUrl
       Notification.show(getTranslation("com.example.issues.validationError"));
     } else {
       projectService.saveOrUpdate(project);
-      bugsModule.updateProjectsSelector();
+      bugsModule.updateProjectsSelectorItems();
       UI.getCurrent().navigate(ProjectsView.class);
     }
   }

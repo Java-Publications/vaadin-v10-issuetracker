@@ -12,6 +12,7 @@ import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 
 public class User {
 
+  //TODO can be done, but must not
   public static final User ANONYMOUS = new User(){
     {
       setDeleted(false);

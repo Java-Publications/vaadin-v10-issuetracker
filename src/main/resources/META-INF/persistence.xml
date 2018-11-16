@@ -5,6 +5,6 @@
              version="2.2">
 
   <persistence-unit name="persistenceUnit">
-    <!--<class>de.hundtconsult.liftmanager.persistence.entities.T0001UsersEntity</class>-->
+
   </persistence-unit>
 </persistence>

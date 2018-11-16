@@ -54,6 +54,7 @@ public class MainLayout extends Composite<VerticalLayout> implements RouterLayou
     if (securityService.isAnonymous()) {
       logger().info("Anonymous User need no #signOut# button");
     } else {
+      //TODO const -> hold in sync with all Route Const
       Anchor signOut = new Anchor("/logout" , getTranslation("com.example.webapp.signOut"));
       signOut.addClassName("mainHeader-signout");
       mainHeader.add(signOut);

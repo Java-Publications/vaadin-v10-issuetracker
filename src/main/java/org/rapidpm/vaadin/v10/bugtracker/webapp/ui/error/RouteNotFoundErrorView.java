@@ -19,7 +19,9 @@ import com.vaadin.flow.theme.lumo.Lumo;
 @ParentLayout(MainLayout.class)
 @HtmlImport("/frontend/styles/shared-styles.html")
 @I18NPageTitle(messageKey = "com.example.webapp.pageNotFound")
-public class RouteNotFoundErrorView extends Composite<VerticalLayout> implements HasErrorParameter<NotFoundException> {
+public class RouteNotFoundErrorView
+    extends Composite<VerticalLayout>
+    implements HasErrorParameter<NotFoundException> {
 
 
   @Override
