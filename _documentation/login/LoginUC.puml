@@ -1,0 +1,72 @@
+@startuml
+:Main Admin: as Admin
+(Use the application) as (Use)
+
+User -> (Start)
+User --> (Use)
+
+Admin ---> (Use)
+
+note right of Admin : This is an example.
+
+note right of (Use)
+A note can also
+be on several lines
+end note
+
+note "This note is connected\nto several objects." as N2
+(Start) .. N2
+N2 .. (Use)
+
+[First component]
+[Another component] as Comp2
+component Comp3
+component [Last\ncomponent] as Comp4
+
+Comp2 --> Comp3
+Comp2 --> (Use)
+@enduml
+
+
+@startuml
+[First component]
+[Another component] as Comp2
+component Comp3
+component [Last\ncomponent] as Comp4
+
+Comp2 --> Comp3
+
+@enduml
+
+@startuml
+
+[*] --> LoginView : Authorization
+LoginView --> Denied : Aborted
+Denied --> LoginView
+
+LoginView -right-> Accepted : Succeeded
+Accepted --> CheckRoles
+CheckRoles --> CreateMainLayout
+CreateMainLayout --> UI
+
+state UI {
+[*] -->  Issues : Role:Developer
+[*] -->  Project : Role:Developer
+[*] -->  Administration : Role:Administration
+
+state Administration {
+[*] --> Usermanagement
+Usermanagement --> [*]
+[*] --> Logging
+Logging --> [*]
+}
+
+
+
+}
+
+
+
+
+
+@enduml

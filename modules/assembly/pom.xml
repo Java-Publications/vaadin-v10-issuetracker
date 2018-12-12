@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>issuetracker-m</artifactId>
+    <groupId>com.vaadin.tutorial</groupId>
+    <version>00.07.05-RPM-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>issuetracker-m-assembly</artifactId>
+
+
+  <dependencies>
+
+    <!--transitive dependencies-->
+    <!--<dependency>-->
+      <!--<groupId>com.vaadin.tutorial</groupId>-->
+      <!--<artifactId>issuetracker-m-infrastructure</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>com.vaadin.tutorial</groupId>-->
+      <!--<artifactId>issuetracker-m-persistence</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>com.vaadin.tutorial</groupId>-->
+      <!--<artifactId>issuetracker-m-webapp</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>com.vaadin.tutorial</groupId>-->
+      <!--<artifactId>issuetracker-m-appmodules-api</artifactId>-->
+    <!--</dependency>-->
+
+    <!--Composition of the final app-->
+    <dependency>
+      <groupId>com.vaadin.tutorial</groupId>
+      <artifactId>issuetracker-m-appmodules-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin.tutorial</groupId>
+      <artifactId>issuetracker-m-appmodules-issues</artifactId>
+    </dependency>
+
+    <!--not deployed per definition-->
+    <!--<dependency>-->
+      <!--<groupId>com.vaadin.tutorial</groupId>-->
+      <!--<artifactId>issuetracker-m-appmodules-reporting</artifactId>-->
+    <!--</dependency>-->
+
+
+  </dependencies>
+
+
+</project>

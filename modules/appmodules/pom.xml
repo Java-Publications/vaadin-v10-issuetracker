@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>issuetracker-m</artifactId>
+    <groupId>com.vaadin.tutorial</groupId>
+    <version>00.07.05-RPM-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>issuetracker-m-appmodules</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>api</module>
+    <module>security</module>
+    <module>issues</module>
+    <module>reporting</module>
+  </modules>
+
+
+  <dependencies>
+    <dependency>
+      <groupId>com.vaadin.tutorial</groupId>
+      <artifactId>issuetracker-m-webapp</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.openjpa</groupId>
+        <artifactId>openjpa-maven-plugin</artifactId>
+        <version>${openjpa.version}</version>
+        <configuration>
+          <includes>**/entities/*.class</includes>
+          <excludes>**/entities/XML*.class</excludes>
+          <addDefaultConstructor>true</addDefaultConstructor>
+          <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+        </configuration>
+        <executions>
+          <execution>
+            <id>enhancer</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>enhance</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <!-- set the version to be the same as the level in your runtime -->
+            <version>${openjpa.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+
+
+
+
+</project>
