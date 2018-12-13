@@ -8,14 +8,20 @@ import java.util.Optional;
 import java.util.Set;
 
 
-import org.rapidpm.dependencies.core.logger.HasLogger;
-import com.vaadin.tutorial.issues.persistence.JpaConfig;
+import javax.enterprise.context.ApplicationScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
-//@ApplicationScoped
+import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.vaadin.tutorial.issues.persistence.PersistenceConfigConstants;
+
+@ApplicationScoped
 public class UserRepository implements HasLogger {
 
   //  @Inject
-  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
+//  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
+  @PersistenceContext(unitName= PersistenceConfigConstants.PERSISTENCE_UNIT)
   private EntityManager em;
 
 
@@ -33,7 +39,8 @@ public class UserRepository implements HasLogger {
     return Set.of();
   }
 
-  @Jpa(transactional = true)
+//  @Jpa(transactional = true)
+  @Transactional()
   public Optional<UserEntity> findById(Long userId) {
     logger().info("findByID id " + userId);
     UserEntity userEntity = em.find(UserEntity.class , userId);

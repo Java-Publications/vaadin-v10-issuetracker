@@ -13,10 +13,19 @@
 
 
   <dependencies>
+
     <dependency>
-      <groupId>com.vaadin.tutorial</groupId>
-      <artifactId>issuetracker-m-infrastructure</artifactId>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+
     <dependency>
       <groupId>com.vaadin.tutorial</groupId>
       <artifactId>issuetracker-m-persistence</artifactId>
@@ -38,6 +47,21 @@
       <artifactId>vaadin-cdi</artifactId>
       <version>${vaadin-cdi.version}</version>
     </dependency>
+
+
+    <!--TDD stuff-->
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-jpa</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+
 
   </dependencies>
 

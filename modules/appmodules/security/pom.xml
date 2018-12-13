@@ -11,9 +11,7 @@
 
   <artifactId>issuetracker-m-appmodules-security</artifactId>
 
-
   <dependencies>
-
     <dependency>
       <groupId>com.vaadin.tutorial</groupId>
       <artifactId>issuetracker-m-appmodules-api</artifactId>

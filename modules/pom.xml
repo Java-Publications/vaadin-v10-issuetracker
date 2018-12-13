@@ -12,7 +12,6 @@
   <artifactId>issuetracker-m</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>infrastructure</module>
     <module>persistence</module>
     <module>webapp</module>
     <module>appmodules</module>

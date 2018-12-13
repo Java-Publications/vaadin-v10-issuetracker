@@ -14,6 +14,21 @@
 
   <dependencies>
 
+    <!--Technical decisions -->
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-core</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-jpa</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
+
+
+
     <!--transitive dependencies-->
     <!--<dependency>-->
       <!--<groupId>com.vaadin.tutorial</groupId>-->
@@ -51,5 +66,14 @@
 
   </dependencies>
 
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.meecrowave</groupId>
+        <artifactId>meecrowave-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

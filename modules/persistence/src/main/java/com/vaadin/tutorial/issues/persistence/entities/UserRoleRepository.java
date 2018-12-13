@@ -7,16 +7,17 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import org.apache.meecrowave.jpa.api.Unit;
 import org.rapidpm.dependencies.core.logger.HasLogger;
-import com.vaadin.tutorial.issues.persistence.JpaConfig;
+import com.vaadin.tutorial.issues.persistence.PersistenceConfigConstants;
 
 @ApplicationScoped
 public class UserRoleRepository implements HasLogger {
 
   @Inject
-  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
+//  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
+  @PersistenceContext(unitName = PersistenceConfigConstants.PERSISTENCE_UNIT)
   private EntityManager em;
 
   public List<UserRoleEntity> findAll() {

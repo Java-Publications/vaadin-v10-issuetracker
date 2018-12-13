@@ -138,11 +138,21 @@
       <dependency>
         <groupId>javax.persistence</groupId>
         <artifactId>javax.persistence-api</artifactId>
-        <version>2.1</version>
+        <version>2.2</version>
         <scope>provided</scope>
       </dependency>
 
-
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jpa_2.1_spec</artifactId>
+        <version>1.0-alpha-1</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.geronimo.specs</groupId>
+        <artifactId>geronimo-jta_1.2_spec</artifactId>
+        <version>1.0-alpha-1</version>
+      </dependency>
 
 
       <!--Vaadin -->
@@ -155,11 +165,6 @@
       </dependency>
 
       <!--Project Modules -->
-      <dependency>
-        <groupId>com.vaadin.tutorial</groupId>
-        <artifactId>issuetracker-m-infrastructure</artifactId>
-        <version>${app.version}</version>
-      </dependency>
       <dependency>
         <groupId>com.vaadin.tutorial</groupId>
         <artifactId>issuetracker-m-persistence</artifactId>
@@ -190,6 +195,40 @@
         <artifactId>issuetracker-m-appmodules-reporting</artifactId>
         <version>${app.version}</version>
       </dependency>
+
+
+
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>5.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <scope>test</scope>
+        <version>3.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <scope>test</scope>
+        <version>42.2.5</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.meecrowave</groupId>
+        <artifactId>meecrowave-core</artifactId>
+        <version>${meecrowave.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.meecrowave</groupId>
+        <artifactId>meecrowave-jpa</artifactId>
+        <version>${meecrowave.version}</version>
+        <scope>test</scope>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -281,10 +320,7 @@
           </annotationProcessorPaths>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.meecrowave</groupId>
-        <artifactId>meecrowave-maven-plugin</artifactId>
-      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>

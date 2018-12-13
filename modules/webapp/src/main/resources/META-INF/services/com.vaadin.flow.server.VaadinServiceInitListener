@@ -1,2 +1,3 @@
-com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitleEngine
+com.vaadin.tutorial.issues.webapp.services.configure.ConfigurationService
+com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitleService
 com.vaadin.tutorial.issues.webapp.security.navigation.NavigationEngine

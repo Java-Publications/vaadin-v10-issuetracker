@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.flow.router.Location;
+import com.vaadin.tutorial.issues.webapp.LoginView;
 import com.vaadin.tutorial.issues.webapp.security.SecurityService;
 
 public class RoleBasedAccessEvaluator implements AccessEvaluator<VisibleTo>, HasLogger {
