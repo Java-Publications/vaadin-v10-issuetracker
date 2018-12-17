@@ -26,6 +26,7 @@ import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.tutorial.issues.webapp.security.PermissionsChangedEvent;
 import com.vaadin.tutorial.issues.webapp.security.SecurityService;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
 import com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitle;
 
 @I18NPageTitle(messageKey = "com.vaadin.tutorial.webapp.signIn")

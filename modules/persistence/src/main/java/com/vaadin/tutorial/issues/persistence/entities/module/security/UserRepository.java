@@ -62,7 +62,13 @@ public class UserRepository implements HasLogger {
         .collect(toList());
   }
 
-  public Result<UserEntity> loadFor(String login , String passwd) {
+  public Result<UserEntity> findBy(String login , String passwd) {
     return Result.failure("not yet implemented");
+  }
+
+  public Set<UserEntity> findByNameAndRole(String username , UserRoleEntity userRole) {
+    logger().info("findByNameAndRole : " + username + " / " + userRole);
+
+    return Set.of();
   }
 }

@@ -20,11 +20,11 @@ public interface UserMapper {
   @Mapping(source = "id", target = "userId")
   User toUser(UserEntity e);
 
-  @Mapping(source = "id", target = "userId")
+  @Mapping(source = "userId", target = "id")
   UserEntity fromUser(User e);
 
 
-  @Mapping(source = "id", target = "userId")
+  //  @Mapping(source = "id", target = "userId")
   List<User> toUserList(Collection<UserEntity> e);
 
 

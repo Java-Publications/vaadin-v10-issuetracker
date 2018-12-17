@@ -18,7 +18,7 @@ import org.rapidpm.dependencies.core.logger.HasLogger;
 public class IssueRepository implements HasLogger {
 
   @Inject
-  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
+//  @Unit(name = JpaConfig.PERSISTENCE_UNIT)
   private EntityManager em;
 
 

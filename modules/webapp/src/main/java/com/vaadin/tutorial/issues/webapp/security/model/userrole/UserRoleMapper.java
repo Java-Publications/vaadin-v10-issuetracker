@@ -24,4 +24,9 @@ public interface UserRoleMapper {
   Set<UserRole> toRoles(Collection<UserRoleEntity> userRoleEntities);
 
 
+  default UserRoleEntity toEntity(UserRole role){
+    throw new RuntimeException("not possible.. find an other way ;-)");
+  }
+
+
 }

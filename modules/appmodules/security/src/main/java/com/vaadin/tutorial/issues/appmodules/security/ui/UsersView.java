@@ -2,6 +2,7 @@ package com.vaadin.tutorial.issues.appmodules.security.ui;
 
 import static com.vaadin.tutorial.issues.appmodules.security.ui.UsersView.ROUTE;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -91,7 +92,7 @@ public class UsersView extends Composite<VerticalLayout> {
   }
 
   private void refreshGrid() {
-    Set<User> users = userService.find(name.getValue() , role.getValue());
+    List<User> users = userService.find(name.getValue() , role.getValue());
     grid.setItems(users);
   }
 

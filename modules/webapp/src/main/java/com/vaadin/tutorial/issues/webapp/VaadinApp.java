@@ -45,12 +45,12 @@ public class VaadinApp extends VerticalLayout implements HasLogger {
     super.onAttach(attachEvent);
 
     Object accepted = VaadinSession.getCurrent().getAttribute(LoginView.ACCEPTED);
-    Class<? extends Composite<?>> targetView = (accepted != null && (Boolean) accepted)
-                                               ? IssuesView.class
-                                               : LoginView.class;
-    logger().info("[VaadinApp] - onAttach - targetView " + targetView);
+    String targetName = (accepted != null && (Boolean) accepted)
+                                               ? "mustBeDefinedViaProperty"
+                                               : LoginView.ROUTE;
+    logger().info("[VaadinApp] - onAttach - targetView " + targetName);
     UI
         .getCurrent()
-        .navigate(targetView);
+        .navigate(targetName);
   }
 }

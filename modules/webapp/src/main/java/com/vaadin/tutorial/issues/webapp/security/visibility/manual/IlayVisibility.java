@@ -1,14 +1,13 @@
 package com.vaadin.tutorial.issues.webapp.security.visibility.manual;
 
 import static com.vaadin.flow.component.ComponentUtil.addListener;
+import static com.vaadin.tutorial.issues.webapp.security.visibility.VisibilityUtil.evaluateVisibility;
+import static com.vaadin.tutorial.issues.webapp.security.visibility.VisibilityUtil.hasVisibilityAnnotation;
 import static java.util.Objects.requireNonNull;
-import static org.rapidpm.vaadin.v10.bugtracker.webapp.security.visibility.VisibilityUtil.evaluateVisibility;
-import static org.rapidpm.vaadin.v10.bugtracker.webapp.security.visibility.VisibilityUtil.hasVisibilityAnnotation;
-
-import org.rapidpm.vaadin.v10.bugtracker.webapp.security.PermissionsChangedEvent;
-import org.rapidpm.vaadin.v10.bugtracker.webapp.security.visibility.VisibilityAnnotation;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.tutorial.issues.webapp.security.PermissionsChangedEvent;
+import com.vaadin.tutorial.issues.webapp.security.visibility.VisibilityAnnotation;
 
 /**
  * usage example:

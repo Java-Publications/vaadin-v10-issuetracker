@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.vaadin.tutorial.issues.appmodules.issues.model.issuestatus.IssueStatus;
+import com.vaadin.tutorial.issues.appmodules.issues.model.projectuser.ProjectUser;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.projects.Project;
 
 public class Issue implements Serializable {
@@ -24,10 +25,10 @@ public class Issue implements Serializable {
 
   private LocalDate date;
 
-  private User owner;
+  private ProjectUser owner;
 
   @NotNull
-  private User reporter;
+  private ProjectUser reporter;
 
   @NotNull
   private IssueStatus status;
@@ -80,19 +81,19 @@ public class Issue implements Serializable {
     this.date = date;
   }
 
-  public User getOwner() {
+  public ProjectUser getOwner() {
     return owner;
   }
 
-  public void setOwner(User owner) {
+  public void setOwner(ProjectUser owner) {
     this.owner = owner;
   }
 
-  public User getReporter() {
+  public ProjectUser getReporter() {
     return reporter;
   }
 
-  public void setReporter(User reporter) {
+  public void setReporter(ProjectUser reporter) {
     this.reporter = reporter;
   }
 

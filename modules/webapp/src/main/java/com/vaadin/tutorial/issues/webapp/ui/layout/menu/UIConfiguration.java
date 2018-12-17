@@ -1,6 +1,6 @@
 package com.vaadin.tutorial.issues.webapp.ui.layout.menu;
 
-import static com.vaadin.tutorial.issues.webapp.security.navigation.NavigationUtil.checkClassForRole;
+import static com.vaadin.tutorial.issues.webapp.security.NavigationUtil.checkClassForRole;
 import static java.lang.Boolean.FALSE;
 
 import java.util.ArrayList;
