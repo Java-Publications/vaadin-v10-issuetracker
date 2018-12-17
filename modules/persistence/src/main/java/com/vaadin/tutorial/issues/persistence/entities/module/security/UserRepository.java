@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.persistence.entities;
+package com.vaadin.tutorial.issues.persistence.entities.module.security;
 
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.rapidpm.dependencies.core.logger.HasLogger;
+import org.rapidpm.frp.model.Result;
 import com.vaadin.tutorial.issues.persistence.PersistenceConfigConstants;
 
 @ApplicationScoped
@@ -59,5 +60,9 @@ public class UserRepository implements HasLogger {
         .stream()
 //        .map(e -> userMapper.toUser(e))
         .collect(toList());
+  }
+
+  public Result<UserEntity> loadFor(String login , String passwd) {
+    return Result.failure("not yet implemented");
   }
 }

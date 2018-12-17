@@ -2,7 +2,7 @@ package com.vaadin.tutorial.issues.appmodules.issues.model.issuestatus;
 
 
 import org.mapstruct.Mapper;
-import com.vaadin.tutorial.issues.persistence.entities.IssueStatusEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.IssueStatusEntity;
 
 @Mapper(
     componentModel = "cdi")

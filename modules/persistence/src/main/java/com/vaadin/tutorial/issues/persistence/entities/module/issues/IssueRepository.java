@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.appmodules.issues.model.issue;
+package com.vaadin.tutorial.issues.persistence.entities.module.issues;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -6,10 +6,13 @@ import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.rapidpm.dependencies.core.logger.HasLogger;
-import com.vaadin.tutorial.issues.appmodules.issues.model.issuestatus.IssueStatus;
-import com.vaadin.tutorial.issues.persistence.JpaConfig;
-import com.vaadin.tutorial.issues.persistence.entities.IssueEntity;
 
 @ApplicationScoped
 public class IssueRepository implements HasLogger {
@@ -25,11 +28,11 @@ public class IssueRepository implements HasLogger {
 //         " and lower(i.reporter.name) like concat('%', lower(:reporter), '%')" +
 //         " and (:status is null or i.status = :status)" + " and (:date is null or i.date = :date)" +
 //         " and i.reporter.deleted = false" + " and (o is null or o.deleted = false)")
-  public Set<Issue> find(Long projectId ,
+  public Set<IssueEntity> find(Long projectId ,
                          String title ,
                          String ownerName ,
                          String reporterName ,
-                         IssueStatus status ,
+                         IssueStatusEntity status ,
                          LocalDate date) {
 
 
@@ -67,16 +70,16 @@ public class IssueRepository implements HasLogger {
   //  @Query("select i from Issue i join i.project p join p.members m left join i.owner o where" +
 //         " i.reporter.deleted = false" + " and m.id = ?#{principal}" + " and (o is null or o.deleted = false)" +
 //         " and i.id = :id" + " and i.reporter.deleted = false")
-  public Optional<Issue> findById(Long id) {
+  public Optional<IssueEntity> findById(Long id) {
     logger().info("[IssueRepository] findById " + id);
     return Optional.empty();
   }
 
-  public void save(Issue issue) {
+  public void save(IssueEntity issue) {
     logger().info("save issue " + issue);
   }
 
-  public void delete(Issue issue) {
+  public void delete(IssueEntity issue) {
     logger().info("delete issue " + issue);
   }
 }

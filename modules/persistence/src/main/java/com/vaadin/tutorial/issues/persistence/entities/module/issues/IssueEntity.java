@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.persistence.entities;
+package com.vaadin.tutorial.issues.persistence.entities.module.issues;
 
 import java.time.LocalDate;
 
@@ -10,6 +10,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.vaadin.tutorial.issues.persistence.entities.CoreEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserEntity;
 
 
 @Entity

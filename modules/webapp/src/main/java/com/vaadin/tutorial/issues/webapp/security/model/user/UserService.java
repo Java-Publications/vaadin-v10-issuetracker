@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.user;
+package com.vaadin.tutorial.issues.webapp.security.model.user;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,8 +6,9 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole;
-import com.vaadin.tutorial.issues.persistence.entities.UserRepository;
+import org.rapidpm.frp.model.Result;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserRepository;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 import com.vaadin.tutorial.issues.webapp.security.password.PasswordEncoder;
 
 public class UserService {
@@ -31,7 +32,10 @@ public class UserService {
   }
 
   public Optional<User> findById(Long id) {
-    return userMapper.toUser(userRepository.findById(id));
+    return userRepository.findById(id)
+                         .stream()
+                         .map(ue -> userMapper.toUser(ue))
+                         .findFirst();
   }
 
   public void delete(User user) {
@@ -44,6 +48,16 @@ public class UserService {
   }
 
   public Set<User> find(String value , UserRole role) {
-    return userRepository.find(value,)
+    return userRepository.find(value , name, role);
+  }
+
+  public Boolean checkCredentials(String login , String passwd) {
+    return userRepository.checkCredentials(login, passwd);
+  }
+
+  public Result<User> loadFor(String login , String passwd) {
+    return userRepository
+        .loadFor(login, passwd)
+        .map(e -> userMapper.toUser(e));
   }
 }

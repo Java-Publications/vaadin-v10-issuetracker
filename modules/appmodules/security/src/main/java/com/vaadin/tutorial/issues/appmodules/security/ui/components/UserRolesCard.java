@@ -7,7 +7,7 @@ import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.User;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
 
 public class UserRolesCard extends Composite<Div> implements HasLogger {
 

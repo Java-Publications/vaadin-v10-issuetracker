@@ -1,19 +1,16 @@
-package com.vaadin.tutorial.issues.webapp.security.navigation;
+package com.vaadin.tutorial.issues.webapp.security;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import com.vaadin.flow.component.Component;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 
 public interface NavigationUtil {
 
 
-
-
-
   static BiFunction<Class<? extends Component>, UserRole, Boolean> checkClassForRole() {
-    return (viewClass, userRole) -> {
+    return (viewClass , userRole) -> {
       Objects.requireNonNull(viewClass);
       Objects.requireNonNull(userRole);
 

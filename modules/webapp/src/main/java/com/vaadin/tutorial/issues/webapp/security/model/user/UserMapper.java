@@ -1,12 +1,12 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.user;
+package com.vaadin.tutorial.issues.webapp.security.model.user;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRoleMapper;
-import com.vaadin.tutorial.issues.persistence.entities.UserEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserEntity;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRoleMapper;
 
 @Mapper(
     uses = {UserRoleMapper.class},

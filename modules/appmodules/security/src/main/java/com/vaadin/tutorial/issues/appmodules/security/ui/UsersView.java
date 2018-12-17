@@ -7,9 +7,9 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import com.vaadin.tutorial.issues.appmodules.security.model.user.User;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.UserService;
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
+import com.vaadin.tutorial.issues.webapp.security.model.user.UserService;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -24,7 +24,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import com.vaadin.tutorial.issues.webapp.security.navigation.VisibleTo;
+import com.vaadin.tutorial.issues.webapp.security.VisibleTo;
+import com.vaadin.tutorial.issues.appmodules.security.ui.components.UserRolesCard;
 import com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitle;
 import com.vaadin.tutorial.issues.webapp.ui.layout.MainLayout;
 

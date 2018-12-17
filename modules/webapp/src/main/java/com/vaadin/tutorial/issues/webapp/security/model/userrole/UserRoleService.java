@@ -1,10 +1,10 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.userrole;
+package com.vaadin.tutorial.issues.webapp.security.model.userrole;
 
 import java.util.Set;
 
 import javax.inject.Inject;
 
-import com.vaadin.tutorial.issues.persistence.entities.UserRoleRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserRoleRepository;
 
 public class UserRoleService {
 

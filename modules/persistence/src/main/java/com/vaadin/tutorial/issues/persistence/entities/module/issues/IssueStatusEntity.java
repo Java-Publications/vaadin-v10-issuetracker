@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.persistence.entities;
+package com.vaadin.tutorial.issues.persistence.entities.module.issues;
 
 import java.util.Objects;
 
@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.vaadin.tutorial.issues.persistence.entities.CoreEntity;
 
 @Entity
 @Table(name = IssueStatusEntity.TABLE_NAME)

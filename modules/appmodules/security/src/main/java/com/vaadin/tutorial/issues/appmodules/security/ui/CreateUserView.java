@@ -1,6 +1,6 @@
 package com.vaadin.tutorial.issues.appmodules.security.ui;
 
-import static com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole.ADMIN;
+import static com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole.ADMIN;
 import static com.vaadin.tutorial.issues.appmodules.security.ui.CreateUserView.ROUTE;
 
 import javax.annotation.PostConstruct;
@@ -20,13 +20,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.Route;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.User;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.UserService;
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole;
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRoleService;
-import com.vaadin.tutorial.issues.persistence.entities.UserRoleRepository;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
+import com.vaadin.tutorial.issues.webapp.security.model.user.UserService;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRoleService;
 import com.vaadin.tutorial.issues.webapp.security.ValidationService;
-import com.vaadin.tutorial.issues.webapp.security.navigation.VisibleTo;
+import com.vaadin.tutorial.issues.webapp.security.VisibleTo;
 import com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitle;
 import com.vaadin.tutorial.issues.webapp.ui.layout.MainLayout;
 
@@ -48,10 +47,9 @@ public class CreateUserView extends Composite<VerticalLayout> {
 
 
   @PostConstruct
-  private void postConstruct(){
+  private void postConstruct() {
     role.setItems(userRoleService.findAll());
   }
-
 
 
   public CreateUserView() {

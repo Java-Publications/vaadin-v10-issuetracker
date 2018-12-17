@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.persistence.entities;
+package com.vaadin.tutorial.issues.persistence.entities.module.security;
 
 import static java.util.stream.Collectors.toList;
 

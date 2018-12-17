@@ -3,7 +3,7 @@ package com.vaadin.tutorial.issues.appmodules.issues.model.issue;
 
 import org.mapstruct.Mapper;
 import com.vaadin.tutorial.issues.appmodules.issues.model.issuestatus.IssueStatusMapper;
-import com.vaadin.tutorial.issues.persistence.entities.IssueEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.IssueEntity;
 
 @Mapper(
     uses = {

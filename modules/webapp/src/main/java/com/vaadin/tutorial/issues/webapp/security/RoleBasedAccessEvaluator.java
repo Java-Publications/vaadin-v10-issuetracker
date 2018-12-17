@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.webapp.security.navigation;
+package com.vaadin.tutorial.issues.webapp.security;
 
 import java.util.Set;
 
@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.flow.router.Location;
 import com.vaadin.tutorial.issues.webapp.LoginView;
-import com.vaadin.tutorial.issues.webapp.security.SecurityService;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
+import com.vaadin.tutorial.issues.webapp.security.navigation.Access;
+import com.vaadin.tutorial.issues.webapp.security.navigation.AccessEvaluator;
 
 public class RoleBasedAccessEvaluator implements AccessEvaluator<VisibleTo>, HasLogger {
 

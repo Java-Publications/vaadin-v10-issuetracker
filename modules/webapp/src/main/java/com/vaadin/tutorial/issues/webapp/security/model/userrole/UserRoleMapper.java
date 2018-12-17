@@ -1,10 +1,10 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.userrole;
+package com.vaadin.tutorial.issues.webapp.security.model.userrole;
 
 import java.util.Collection;
 import java.util.Set;
 
 import org.mapstruct.Mapper;
-import com.vaadin.tutorial.issues.persistence.entities.UserRoleEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserRoleEntity;
 
 @Mapper(componentModel = "cdi")
 public interface UserRoleMapper {

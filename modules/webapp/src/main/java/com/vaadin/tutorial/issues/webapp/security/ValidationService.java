@@ -8,6 +8,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import com.vaadin.flow.component.HasValidation;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
 
 public class ValidationService {
 

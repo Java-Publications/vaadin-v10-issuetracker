@@ -15,13 +15,13 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.tutorial.issues.appmodules.api.BusinessAppModule;
-import com.vaadin.tutorial.issues.appmodules.issues.model.project.ProjectRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.ProjectRepository;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.issues.ui.CreateIssueView;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.issues.ui.IssuesView;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.projects.Project;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.projects.ui.CreateProjectView;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.projects.ui.ProjectsView;
-import com.vaadin.tutorial.issues.persistence.entities.UserRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserRepository;
 import com.vaadin.tutorial.issues.webapp.ui.layout.menu.UIConfiguration;
 
 @UIScoped

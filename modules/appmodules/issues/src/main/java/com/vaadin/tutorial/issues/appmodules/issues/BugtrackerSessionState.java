@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-import org.rapidpm.vaadin.v10.bugtracker.model.userrole.UserRole;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 
 @VaadinSessionScoped
 public class BugtrackerSessionState implements Serializable {

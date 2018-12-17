@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.user;
+package com.vaadin.tutorial.issues.webapp.security.model.user;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -6,26 +6,23 @@ import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 
 
 public class User implements Serializable {
 
   //TODO can be done, but must not
-  public static final User ANONYMOUS = new User(){
+  public static final User ANONYMOUS = new User() {
     {
       setDeleted(false);
       setEmail("xx.xx@xx.xx");
       setName("ANONYMOUS");
       setPassword("");
       setRoles(Set.of());
-      setUserId(-1L);
+      setUserId(- 1L);
     }
   };
-
 
 
   @NotNull
@@ -42,8 +39,8 @@ public class User implements Serializable {
 
   @NotNull
   @NotEmpty
-  @Size(min = 6, max = 255)
-  @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "{com.vaadin.tutorial.webapp.invalidPassword}")
+  //@Size(min = 6, max = 255)
+  //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "{com.vaadin.tutorial.webapp.invalidPassword}")
   private String password;
 
 //  @Enumerated(EnumType.STRING)

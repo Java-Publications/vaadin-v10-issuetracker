@@ -1,6 +1,6 @@
-package com.vaadin.tutorial.issues.persistence.entities;
+package com.vaadin.tutorial.issues.persistence.entities.module.issues;
 
-import static com.vaadin.tutorial.issues.persistence.entities.ProjectEntity.TABLE_NAME;
+import static com.vaadin.tutorial.issues.persistence.entities.module.issues.ProjectEntity.TABLE_NAME;
 
 import java.util.Set;
 
@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.vaadin.tutorial.issues.persistence.entities.CoreEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserEntity;
 
 @Entity
 @Table(name = TABLE_NAME)

@@ -1,6 +1,7 @@
 package com.vaadin.tutorial.issues.appmodules.security.ui;
 
 import static com.vaadin.tutorial.issues.appmodules.security.ui.EditUserView.ROUTE;
+import static com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole.ADMIN;
 
 import java.util.Optional;
 
@@ -23,11 +24,12 @@ import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.User;
-import com.vaadin.tutorial.issues.appmodules.security.model.user.UserService;
-import com.vaadin.tutorial.issues.appmodules.security.model.userrole.UserRole;
+import com.vaadin.tutorial.issues.appmodules.security.ModuleSecuritySessionState;
+import com.vaadin.tutorial.issues.webapp.security.model.user.User;
+import com.vaadin.tutorial.issues.webapp.security.model.user.UserService;
+import com.vaadin.tutorial.issues.webapp.security.model.userrole.UserRole;
 import com.vaadin.tutorial.issues.webapp.security.ValidationService;
-import com.vaadin.tutorial.issues.webapp.security.navigation.VisibleTo;
+import com.vaadin.tutorial.issues.webapp.security.VisibleTo;
 import com.vaadin.tutorial.issues.webapp.services.i18npagetitle.I18NPageTitle;
 import com.vaadin.tutorial.issues.webapp.ui.dialog.ConfirmDialog;
 import com.vaadin.tutorial.issues.webapp.ui.layout.MainLayout;
@@ -41,7 +43,7 @@ public class EditUserView extends Composite<VerticalLayout> implements HasUrlPar
 
 
   @Inject private UserService userService;
-  @Inject private BugtrackerSessionState bugtrackerSessionState;
+  @Inject private ModuleSecuritySessionState bugtrackerSessionState;
   @Inject private ValidationService validationService;
 
   private TextField name = new TextField(getTranslation("com.vaadin.tutorial.issues.name"));

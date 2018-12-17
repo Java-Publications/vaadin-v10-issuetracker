@@ -9,10 +9,10 @@ import javax.inject.Inject;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
 import com.vaadin.tutorial.issues.appmodules.issues.BugtrackerSessionState;
 import com.vaadin.tutorial.issues.appmodules.issues.model.issue.Issue;
-import com.vaadin.tutorial.issues.appmodules.issues.model.issue.IssueRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.IssueRepository;
 import com.vaadin.tutorial.issues.appmodules.issues.model.issuestatus.IssueStatus;
-import com.vaadin.tutorial.issues.appmodules.issues.model.project.ProjectRepository;
-import com.vaadin.tutorial.issues.persistence.entities.UserRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.ProjectRepository;
+import com.vaadin.tutorial.issues.persistence.entities.module.security.UserRepository;
 
 @VaadinSessionScoped
 public class IssueService {

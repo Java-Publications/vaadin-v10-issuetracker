@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.userrole;
+package com.vaadin.tutorial.issues.webapp.security.model.userrole;
 
 public class UserRoleValidator {
 

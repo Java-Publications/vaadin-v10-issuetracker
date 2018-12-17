@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.issues.appmodules.security.model.userrole;
+package com.vaadin.tutorial.issues.webapp.security.model.userrole;
 
 import static org.rapidpm.frp.matcher.Case.match;
 import static org.rapidpm.frp.matcher.Case.matchCase;

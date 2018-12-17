@@ -1,20 +1,28 @@
-package com.vaadin.tutorial.issues.appmodules.issues.model.project;
+package com.vaadin.tutorial.issues.persistence.entities.module.issues;
 
 import static java.util.stream.Collectors.toList;
+import static org.graalvm.compiler.options.OptionType.User;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.cdi.annotation.VaadinSessionScoped;
 import com.vaadin.tutorial.issues.appmodules.issues.ui.projects.Project;
 import com.vaadin.tutorial.issues.persistence.JpaConfig;
-import com.vaadin.tutorial.issues.persistence.entities.ProjectEntity;
+import com.vaadin.tutorial.issues.persistence.entities.module.issues.ProjectEntity;
 
-@VaadinSessionScoped
+@ApplicationScoped
 public class ProjectRepository implements HasLogger {
 
   @Inject ProjectMapper projectMapper;
